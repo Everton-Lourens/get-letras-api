@@ -38,23 +38,6 @@ public class Home extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void postQuery(String query) {
-        this.pesquisar = query;
-        System.out.println("Pesquisar: " + pesquisar);
-
-        String nomeArquivo = Paths.get("").toAbsolutePath() + "/src/meuNode/query.txt";
-        String texto = pesquisar;
-
-        try {
-            FileWriter fileWriter = new FileWriter(nomeArquivo);
-            fileWriter.write(texto);
-            fileWriter.close();
-            System.out.println("Texto gravado com sucesso no arquivo.");
-        } catch (IOException e) {
-            System.out.println("Erro ao gravar o arquivo: " + e.getMessage());
-        }
-    }
-
     public String letArquivoNode() {
 
         String diretorioAtual = System.getProperty("user.dir");
@@ -80,11 +63,11 @@ public class Home extends javax.swing.JFrame {
 
     public void writer(String conteudo) {
         try {
+            this.arquivoOriginal = conteudo;
             String diretorioAtual = System.getProperty("user.dir");
             String filePath = diretorioAtual + "\\src\\meuNode\\index.js";
             // Editar o conteúdo
 
-            this.arquivoOriginal = conteudo;
             String novoConteudo = editarConteudoJS(conteudo); // Função para editar o conteúdo do arquivo
 
             // Salvar as alterações de volta no arquivo
@@ -95,12 +78,19 @@ public class Home extends javax.swing.JFrame {
             System.out.println("Arquivo editado com sucesso.");
         } catch (IOException e) {
             System.out.println("Erro ao editar o arquivo: " + e.getMessage());
+            defaultConfig();
         }
     }
 
     public void defaultConfig() {
         this.pesquisar = "PESQUISAR";
         writer(arquivoOriginal);
+        if (txtLetra.getText().length() == 0) {
+            txtTitulo.setText(null);
+            txtArtista.setText(null);
+            txtPesquisar.setText(null);
+        }
+
     }
 
     private static String editarConteudoJS(String conteudo) {
@@ -152,6 +142,7 @@ public class Home extends javax.swing.JFrame {
             System.out.println("Saída do processo: " + processo.exitValue());
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            defaultConfig();
         }
     }
 
@@ -350,10 +341,14 @@ public class Home extends javax.swing.JFrame {
 
             promtNode();
 
-            Thread nodeThread = new Thread(() -> {
-                carregar();
-            });
-            nodeThread.start();
+            try {
+                Thread nodeThread = new Thread(() -> {
+                    carregar();
+                });
+                nodeThread.start();
+            } catch (Exception e) {
+                defaultConfig();
+            }
 
             defaultConfig();
 
@@ -377,6 +372,7 @@ public class Home extends javax.swing.JFrame {
             load.dispose();
 
         } catch (Exception e) {
+            defaultConfig();
         }
 
     }
