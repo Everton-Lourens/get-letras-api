@@ -2,15 +2,17 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs');
 
-query();
+let query = 'pesquisar';
+
+query(query);
 
 async function query() {
    try {
-      const filePath = './letra.txt'; // Caminho do arquivo de texto
-      const pesquisarLetra = fs.readFileSync(filePath, 'utf8');
+      //const filePath = 'query.txt'; // Caminho do arquivo de texto
+      //const pesquisarLetra = fs.readFileSync(filePath, 'utf8');
 
       //console.log(pesquisarLetra + ' site:letras.mus.br');
-      searchOnGoogle(pesquisarLetra + ' site:letras.mus.br');
+      searchOnGoogle('seu sangue fernandinho' + ' site:letras.mus.br');
 
    } catch (error) {
       console.error('Erro ao ler o arquivo:', error);
@@ -61,9 +63,6 @@ function parseSearchResponseToList(html) {
       const title = splitTitleAndArtist[0];
       const artist = splitTitleAndArtist[1];
 
-      console.log(title);
-      console.log(artist);
-
       // Selecionar o elemento que contém a letra da música
       const letraContainer = $('.cnt-letra');
 
@@ -85,8 +84,11 @@ function parseSearchResponseToList(html) {
          const filePath = './letra.txt'; // Caminho do arquivo de texto
          const conteudoParaEscrever = letraBruta.trim();
    
+         console.log(title);
+         console.log(artist);
+
          // Opção 1: Escrever de forma síncrona
-         fs.writeFileSync(filePath, conteudoParaEscrever, 'utf8');
+         fs.writeFileSync(filePath, title + '–\n' + artist + '–\n' + conteudoParaEscrever, 'utf8');
          console.log('Conteúdo escrito no arquivo com sucesso.');
    
          // Opção 2: Escrever de forma assíncrona
