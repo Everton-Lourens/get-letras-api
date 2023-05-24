@@ -2,18 +2,13 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs');
 
-let query = 'pesquisar';
+let query = 'PRECISO DE TI';
 
-query(query);
+init(query);
 
-async function query() {
+async function init(query) {
    try {
-      //const filePath = 'query.txt'; // Caminho do arquivo de texto
-      //const pesquisarLetra = fs.readFileSync(filePath, 'utf8');
-
-      //console.log(pesquisarLetra + ' site:letras.mus.br');
-      searchOnGoogle('seu sangue fernandinho' + ' site:letras.mus.br');
-
+      searchOnGoogle(query + ' gospel site:letras.mus.br');
    } catch (error) {
       console.error('Erro ao ler o arquivo:', error);
    }
@@ -31,14 +26,12 @@ async function searchOnGoogle(query) {
       if (match && match[1]) {
          const firstLink = decodeURIComponent(match[1]);
 
-         //console.log(firstLink);
-
          if (firstLink) {
             try {
                const response = await axios.get(firstLink);
-               console.log('1111111111111');
+
                parseSearchResponseToList(response.data);
-               console.log('2222222222222');
+
             } catch (error) {
                console.error('Erro ao pesquisar letra:', error);
             }
@@ -78,30 +71,9 @@ function parseSearchResponseToList(html) {
       // Remover tags restantes
       letraBruta = letraBruta.replace(/<\/?[^>]+(>|$)/g, '');
 
-      console.log(letraBruta.trim());
-
-      try {
-         const filePath = './letra.txt'; // Caminho do arquivo de texto
-         const conteudoParaEscrever = letraBruta.trim();
-   
-         console.log(title);
-         console.log(artist);
-
-         // Opção 1: Escrever de forma síncrona
-         fs.writeFileSync(filePath, title + '–\n' + artist + '–\n' + conteudoParaEscrever, 'utf8');
-         console.log('Conteúdo escrito no arquivo com sucesso.');
-   
-         // Opção 2: Escrever de forma assíncrona
-         fs.writeFile(filePath, conteudoParaEscrever, 'utf8', (error) => {
-            if (error) {
-               console.error('Erro ao escrever no arquivo:', error);
-            } else {
-               console.log('Conteúdo escrito no arquivo com sucesso.');
-            }
-         });
-      } catch (error) {
-         console.error('Erro ao escrever no arquivo:', error);
-      }
+      console.log(title);
+      console.log(artist);
+      console.log(letraBruta.trim()); // IMPORTANTE DEIXAR
 
    } catch (error) {
       console.error('Ocorreu um erro:', error);

@@ -36,6 +36,7 @@ public class Home extends javax.swing.JFrame {
 
     public Home() {
         initComponents();
+        arquivoOriginal = letArquivoNode();
     }
 
     public String letArquivoNode() {
@@ -53,6 +54,7 @@ public class Home extends javax.swing.JFrame {
                 stringBuilder.append(System.lineSeparator());
             }
             reader.close();
+
             return stringBuilder.toString();
 
         } catch (IOException e) {
@@ -63,16 +65,19 @@ public class Home extends javax.swing.JFrame {
 
     public void writer(String conteudo) {
         try {
-            this.arquivoOriginal = conteudo;
             String diretorioAtual = System.getProperty("user.dir");
             String filePath = diretorioAtual + "\\src\\meuNode\\index.js";
             // Editar o conteúdo
-
-            String novoConteudo = editarConteudoJS(conteudo); // Função para editar o conteúdo do arquivo
-
             // Salvar as alterações de volta no arquivo
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-            writer.write(novoConteudo);
+
+            if (pesquisar != "") {
+                String novoConteudo = editarConteudoJS(conteudo); // Função para editar o conteúdo do arquivo
+                writer.write(novoConteudo);
+            } else {
+                writer.write(arquivoOriginal);
+            }
+
             writer.close();
 
             System.out.println("Arquivo editado com sucesso.");
@@ -83,7 +88,7 @@ public class Home extends javax.swing.JFrame {
     }
 
     public void defaultConfig() {
-        this.pesquisar = "PESQUISAR";
+        this.pesquisar = "";
         writer(arquivoOriginal);
         if (txtLetra.getText().length() == 0) {
             txtTitulo.setText(null);
@@ -97,11 +102,12 @@ public class Home extends javax.swing.JFrame {
         // Faça as alterações desejadas no conteúdo do arquivo JavaScript
         // Por exemplo, você pode substituir uma string por outra
         String novoConteudo = conteudo.replace("let query = 'PESQUISAR';", "let query = '" + pesquisar + "';");
-        return novoConteudo;
+        return arquivoOriginal;
     }
 
     public void promtNode() {
         try {
+
             // Obter o diretório atual em que o programa está sendo executado
             String diretorioAtual = System.getProperty("user.dir");
             // Criar um objeto ProcessBuilder para executar o Node.js
@@ -112,13 +118,7 @@ public class Home extends javax.swing.JFrame {
             Process processo = pb.start();
             // Ler a saída do processo
             BufferedReader reader = new BufferedReader(new InputStreamReader(processo.getInputStream()));
-
-            BufferedReader errorReader = new BufferedReader(new InputStreamReader(processo.getErrorStream()));
-            String errorLine;
-            while ((errorLine = errorReader.readLine()) != null) {
-                System.err.println(errorLine);
-            }
-
+            
             String linha;
             String teste = "";
             int count = 0;
@@ -342,10 +342,10 @@ public class Home extends javax.swing.JFrame {
             promtNode();
 
             try {
-                Thread nodeThread = new Thread(() -> {
-                    carregar();
-                });
-                nodeThread.start();
+                //Thread nodeThread = new Thread(() -> {
+                //carregar();
+                //});
+                //nodeThread.start();
             } catch (Exception e) {
                 defaultConfig();
             }
