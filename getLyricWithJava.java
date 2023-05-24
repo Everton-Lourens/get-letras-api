@@ -102,7 +102,7 @@ public class Home extends javax.swing.JFrame {
         // Faça as alterações desejadas no conteúdo do arquivo JavaScript
         // Por exemplo, você pode substituir uma string por outra
         String novoConteudo = conteudo.replace("let query = 'PESQUISAR';", "let query = '" + pesquisar + "';");
-        return arquivoOriginal;
+        return novoConteudo;
     }
 
     public void promtNode() {
