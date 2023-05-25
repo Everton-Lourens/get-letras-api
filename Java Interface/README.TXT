@@ -1,4 +1,4 @@
-Author: Everton Lourens
+Autor: Everton Lourens
 Instagram: @evertonlourens
 ======================================================================
 Programa criado para auxiliar as igrejas na busca de letras.
