@@ -17,8 +17,8 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 ### 🎲 Rodando nossa aplicação
 
 ```bash
-OBS: Se você não é desenvolvedor e deseja apenas utilizar o programa,
-baixe o winrar que o arquivo pronto para ser utilizado.
+OBS: Se você não é desenvolvedor e deseja apenas usufruir do programa,
+baixe apenas o winrar que está pronto para ser utilizado.
 
 # Instale as dependências
 $ npm install
