@@ -1,34 +1,51 @@
-# getLyrics
-Pegar letras de músicas no site "www.letras.mus.br"
+## Descrição do Projeto
 
+<p align="center"></p>
+<h1 align="center">
+    Autor: Everton Lourens
+    <a href="https://www.instagram.com/evertonlourens/">Instagram</a>
+</h1>
+<p align="center">🚀 Projeto criado com o intuito de auxiliar as igrejas.</p>
+<br>
 
-Author: Everton Lourens
-Instagram: @evertonlourens
-======================================================================
-Programa criado para auxiliar as igrejas na busca de letras.
+### Pré-requisitos
 
-Resumo do programa:
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Nodejs](https://nodejs.org/dist/v18.16.0/node-v18.16.0-x64.msi), [Java](https://download.oracle.com/java/20/latest/jdk-20_windows-x64_bin.msi).
 
-Ao pesquisar uma letra, o programa fará uma pesquisa no
-Google e entrará sempre no primeiro link que encontrar,
-adicionando "gospel site:letras.mus.br" na sua pesquisa.
-Dessa forma, a busca por letras gospel ficará "mais certeira".
+### 🎲 Rodando nossa aplicação
 
----Exemplo:
-1°- Você digitou no programa: "SEU SANGUE, FERNANDINHO"
+```bash
+# Instale as dependências
+$ npm install
 
-2°- Programa pesquisa no Google:
-("SEU SANGUE, FERNANDINHO gospel site:letras.mus.br")
+# Execute a aplicação em modo de desenvolvimento
+$ yarn dev
 
-::::::::::::OBS::::::::::::
-NÃO É NECESSÁRIO ESCREVER "gospel site:letras.mus.br",
-APENAS ESCREVA A LETRA DA MÚSICA OU O TÍTULO.
+OBS: Se deseja Utilizar o programa, o arquivo contém, um winrar com a interface.
 
-Aplicativos nesserários para utilizar o programa:
-======================================================================
--------Nodejs-------
-https://nodejs.org/dist/v18.16.0/node-v18.16.0-x64.msi
-______________________________________________________________________
--------Java-------
-https://download.oracle.com/java/20/latest/jdk-20_windows-x64_bin.msi
-======================================================================
+## Pronto, escaneie o código QR do Whatsapp e Voilà, aproveite!
+```
+
+### 🛠 Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+- [Node.js](https://nodejs.org/en/)
+- [Netbeans](https://netbeans.apache.org/)
+
+### 🛠 Tecnologias
+
+As seguintes linguagens foram usadas na construção do projeto:
+
+- [Java](https://pt.wikipedia.org/wiki/Java_(linguagem_de_programa%C3%A7%C3%A3o))
+- [Node.js](https://en.wikipedia.org/wiki/Node.js)
+
+### Autor
+
+---
+
+<a href="https://github.com/Everton-Lourens/">
+ <br />
+
+Done with ❤️ by Everton Lourens 👋🏽 !
