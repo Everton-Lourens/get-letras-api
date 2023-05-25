@@ -24,7 +24,7 @@ Dessa forma, a busca por letras gospel ficará "mais certeira".
 
 ("SEU SANGUE, FERNANDINHO gospel site:letras.mus.br")
 
-::::::::::::OBS::::::::::::
+OBS:::::
 NÃO É NECESSÁRIO ESCREVER "gospel site:letras.mus.br",
 APENAS ESCREVA A LETRA DA MÚSICA OU O TÍTULO.
 
