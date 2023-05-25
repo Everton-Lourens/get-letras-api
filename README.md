@@ -17,13 +17,14 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 ### 🎲 Rodando nossa aplicação
 
 ```bash
+OBS: Se você não é desenvolvedor e deseja apenas utilizar o programa,
+baixe o winrar que o arquivo pronto para ser utilizado.
+
 # Instale as dependências
 $ npm install
 
 # Execute a aplicação em modo de desenvolvimento
 $ yarn dev
-
-OBS: Se deseja Utilizar o programa, o arquivo contém, um winrar com a interface.
 
 ## Pronto, escaneie o código QR do Whatsapp e Voilà, aproveite!
 ```
