@@ -6,8 +6,25 @@
     <br>
     Instagram: <a href="https://www.instagram.com/evertonlourens/">@evertonlourens</a>
 </h1>
-<p align="center">🚀 Projeto criado com o intuito de auxiliar as igrejas.</p>
+<p align="center">🚀 Projeto criado com o intuito de facilitar a busca de letras de músicas nas igrejas.</p>
 <br>
+
+### Resumo do programa
+
+Ao pesquisar uma letra, o programa fará uma pesquisa no
+Google e entrará sempre no primeiro link que encontrar,
+adicionando "gospel site:letras.mus.br" na sua pesquisa.
+Dessa forma, a busca por letras gospel ficará "mais certeira".
+
+---Exemplo:
+1°- Você digitou no programa: "SEU SANGUE, FERNANDINHO"
+
+2°- Programa pesquisa no Google:
+("SEU SANGUE, FERNANDINHO gospel site:letras.mus.br")
+
+::::::::::::OBS::::::::::::
+NÃO É NECESSÁRIO ESCREVER "gospel site:letras.mus.br",
+APENAS ESCREVA A LETRA DA MÚSICA OU O TÍTULO.
 
 ### Pré-requisitos
 
@@ -17,8 +34,8 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 ### 🎲 Rodando nossa aplicação
 
 ```bash
-OBS: Se você não é desenvolvedor e deseja apenas usufruir do programa,
-baixe apenas o winrar que está pronto para ser utilizado.
+OBS: Se você não é desenvolvedor e deseja apenas utilizar o programa,
+baixe apenas o winrar que está pronto para ser utilizado com a interface.
 
 # Instale as dependências
 $ npm install
