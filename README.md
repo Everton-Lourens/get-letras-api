@@ -4,7 +4,7 @@
 <h1 align="center">
     Autor: Everton Lourens
     <br>
-    <a href="https://www.instagram.com/evertonlourens/">Instagram</a>
+    Instagram: <a href="https://www.instagram.com/evertonlourens/">@evertonlourens</a>
 </h1>
 <p align="center">🚀 Projeto criado com o intuito de auxiliar as igrejas.</p>
 <br>
