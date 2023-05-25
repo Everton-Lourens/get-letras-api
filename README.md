@@ -3,6 +3,7 @@
 <p align="center"></p>
 <h1 align="center">
     Autor: Everton Lourens
+    <br>
     <a href="https://www.instagram.com/evertonlourens/">Instagram</a>
 </h1>
 <p align="center">🚀 Projeto criado com o intuito de auxiliar as igrejas.</p>
