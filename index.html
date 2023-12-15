@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pesquisar Letra de Música</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 20px;
+      padding: 20px;
+      background-color: #e4e4e4;
+      /* Cinza claro */
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      padding: 5px;
+      width: 70%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      /* Tamanho da fonte */
+      box-sizing: border-box;
+      /* Tamanho do elemento */
+    }
+
+    .button-container {
+      display: flex;
+      align-items: center;
+    }
+
+    button {
+      padding: 10px 25px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
+      margin-right: 10px;
+      /* Adicionei margem à direita para espaçamento entre o botão e o texto */
+    }
+
+    #btn-search:hover {
+      background-color: #2980b9;
+    }
+
+    h2 {
+      margin-top: 20px;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      padding: 10px;
+      background-color: #fff;
+      /* Branco */
+      border: 1px solid #ddd;
+      overflow: auto;
+    }
+
+    #div-resultados {
+      display: none;
+      /* Inicialmente esconde a div */
+      margin-top: 10px;
+      /* Adiciona um espaçamento superior */
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    #btn-title,
+    #btn-artist,
+    #btn-lyrics {
+      transition: color 1s ease;
+      /* Adiciona uma transição suave para a cor do texto */
+    }
+
+    .copied {
+      background-color: green;
+    }
+
+    .error {
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <center>
+    <h2 for="title">Letras de Música</h2>
+    <br>
+    <input type="text" id="searchInput" oninput="limitCharacters(this, 100)" placeholder="Pesquise a letra da música">
+    <button id="btn-search" onclick="search()"><strong>Pesquisar</strong></button>
+  </center>
+
+  <div id="div-resultados">
+    <div class="button-container">
+      <button id="btn-title" onclick="changeColor('btn-title'), copy('title')"><strong>Copiar</strong></button>
+      <p><strong>Título:</strong> <span id="title"></span></p>
+    </div>
+
+    <div class="button-container">
+      <button id="btn-artist" onclick="changeColor('btn-artist'), copy('artist')"><strong>Copiar</strong></button>
+      <p><strong>Artista:</strong> <span id="artist"></span></p>
+    </div>
+    <div class="button-container">
+      <button id="btn-lyrics" onclick="changeColor('btn-lyrics'), copy('lyrics')"><strong>Copiar</strong></button>
+      <p><strong>Letra:</strong></p>
+    </div>
+    <pre id="lyrics"></pre>
+  </div>
+
+  <script src="./index.js"></script>
+</body>
+
+</html>

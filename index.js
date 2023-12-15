@@ -1,81 +1,94 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
-const fs = require('fs');
 
-let query = 'PRECISO DE TI';
-
-init(query);
-
-async function init(query) {
-   try {
-      searchOnGoogle(query + ' gospel site:letras.mus.br');
-   } catch (error) {
-      console.error('Erro ao ler o arquivo:', error);
-   }
-}
-
-async function searchOnGoogle(query) {
-   const baseUrl = 'https://www.google.com/search';
-   const encodedQuery = encodeURIComponent(query);
-   const url = `${baseUrl}?q=${encodedQuery}`;
-
-   try {
-      const response = await axios.get(url);
-      const html = response.data;
-      const match = html.match(/\/url\?q=([^&]+)/);
-      if (match && match[1]) {
-         const firstLink = decodeURIComponent(match[1]);
-
-         if (firstLink) {
-            try {
-               const response = await axios.get(firstLink);
-
-               parseSearchResponseToList(response.data);
-
-            } catch (error) {
-               console.error('Erro ao pesquisar letra:', error);
-            }
+function search() {
+   const searchInput = document.getElementById('searchInput').value;
+   changeColor('btn-search', false)
+   fetch(`http://localhost:3000/search?q=${searchInput}`)
+      .then(response => response.json())
+      .then(data => {
+         if (data) {
+            const { title, artist, letraBruta } = data;
+            document.getElementById('title').textContent = title;
+            document.getElementById('artist').textContent = artist;
+            document.getElementById('lyrics').textContent = letraBruta;
+            document.getElementById('searchInput').value = '';
+            toggleDiv(false);
+         } else {
+            changeColor('btn-search', true)
+            document.getElementById('title').textContent = '';
+            document.getElementById('artist').textContent = '';
+            document.getElementById('lyrics').textContent = '';
+            toggleDiv(true);
+            // Exibe uma mensagem caso não haja resultados.
+            setTimeout(() => {
+               alert('Nenhuma letra encontrada.');
+            }, 100);
          }
-      } else {
-         console.log('Nenhum link encontrado.');
-      }
-   } catch (error) {
-      console.error('Ocorreu um erro durante a solicitação:', error);
+
+      })
+      .catch(error => console.log('Erro na busca de letras.' + error));
+}
+
+
+document.addEventListener('keydown', function (event) {
+   // Verifica se a tecla pressionada é Enter (código 13)
+   if (event.key === 'Enter') {
+      // Aciona o clique no botão com base no seu ID
+      document.getElementById('btn-search').click();
+   }
+});
+
+
+function changeColor(idElement, error) {
+   var spanContent = document.getElementById(idElement);
+
+   if (!error) {
+      // Altera temporariamente a cor para verde
+      spanContent.classList.add('copied');
+      // Define um timeout para voltar à cor normal após 1 segundo
+      setTimeout(function () {
+         spanContent.classList.remove('copied');
+      }, 1500);
+   } else {
+      // Altera temporariamente a cor para verde
+      spanContent.classList.add('error');
+      // Define um timeout para voltar à cor normal após 1 segundo
+      setTimeout(function () {
+         spanContent.classList.remove('error');
+      }, 1500);
    }
 }
 
-function parseSearchResponseToList(html) {
-   try {
-      let $ = cheerio.load(html);
-      const titleElement = $('title');
-      const titleName = titleElement.text();
-      const titleAndArtist = titleName.replace(' - LETRAS.MUS.BR', '');
 
-      const splitTitleAndArtist = titleAndArtist.split(' - ');
+function toggleDiv(status) {
+   var divResultados = document.getElementById('div-resultados');
+   // Alterna a visibilidade com base no estado atual
+   divResultados.style.display = status ? 'none' : 'block';
+}
 
-      const title = splitTitleAndArtist[0];
-      const artist = splitTitleAndArtist[1];
 
-      // Selecionar o elemento que contém a letra da música
-      const letraContainer = $('.cnt-letra');
 
-      // Extrair o texto bruto da letra
-      let letraBruta = letraContainer.html();
 
-      // Substituir <br> por \n
-      letraBruta = letraBruta.replace(/<br\s*\/?>/gi, '\n');
 
-      // Substituir <p> por \n\n
-      letraBruta = letraBruta.replace(/<\/?p[^>]*>/gi, '\n');
+function copy(idElement) {
+   // Seleciona o conteúdo do span
+   var spanContent = document.getElementById(idElement);
+   var range = document.createRange();
+   range.selectNode(spanContent);
+   window.getSelection().removeAllRanges();
+   window.getSelection().addRange(range);
 
-      // Remover tags restantes
-      letraBruta = letraBruta.replace(/<\/?[^>]+(>|$)/g, '');
+   // Copia o conteúdo selecionado
+   document.execCommand('copy');
 
-      console.log(title);
-      console.log(artist);
-      console.log(letraBruta.trim()); // IMPORTANTE DEIXAR
+   // Limpa a seleção
+   window.getSelection().removeAllRanges();
+}
 
-   } catch (error) {
-      console.error('Ocorreu um erro:', error);
+
+function limitCharacters(inputField, maxLength) {
+   // Verifica se o comprimento do valor é maior que o limite
+   if (inputField.value.length > maxLength) {
+      // Se for, corta o valor para o limite máximo
+      inputField.value = inputField.value.slice(0, maxLength);
    }
 }
