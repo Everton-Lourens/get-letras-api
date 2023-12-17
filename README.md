@@ -42,8 +42,10 @@ baixe apenas o winrar que está pronto para ser utilizado com a interface.
 # Instale as dependências
 $ npm install
 
-# Execute a aplicação em modo de desenvolvimento
-$ yarn dev
+# Execute a aplicação
+$ npm run pack
+
+$ npm run dist
 
 ## Pronto, escaneie o código QR do Whatsapp e Voilà, aproveite!
 ```
