@@ -1,5 +1,9 @@
 # Get Letras
 
+![Exemplo de Tela do Aplicativo](https://ibb.co/DMVvNSr)
+![Exemplo de Tela do Aplicativo](https://ibb.co/W5R7q3H)
+![Exemplo de Tela do Aplicativo](https://ibb.co/0mBjkjw)
+
 Este aplicativo foi desenvolvido para solucionar um problema da igreja.
 Vi que tínhamos um problema na mídia da igreja que faço parte e criei a solução.
 Sempre que alguém cantava uma música que não tinha cadastrado no programa do projetor do telão, tínhamos que fazer tudo isso de forma manual.
