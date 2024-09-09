@@ -1,7 +1,9 @@
 # Get Letras
 
-![Exemplo 1 de Tela do Aplicativo](https://ibb.co/DMVvNSr)
+![Exemplo 1 de Tela do Aplicativo](https://i.ibb.co/B6zQmSn/Print1.jpg)
+
 ![Exemplo 2 de Tela do Aplicativo](https://ibb.co/W5R7q3H)
+
 ![Exemplo 3 de Tela do Aplicativo](https://ibb.co/0mBjkjw)
 
 Este aplicativo foi desenvolvido para solucionar um problema da igreja.
