@@ -53,14 +53,14 @@ app.on('activate', function () {
 
 async function init(query) {
     try {
-        return await searchOnGoogle(query + ' gospel site:letras.mus.br');
+        return await searchOnBing(query + ' gospel site:letras.mus.br');
     } catch (error) {
         console.error('Erro ao ler o arquivo:', error);
     }
 }
 
-async function searchOnGoogle(query) {
-    const baseUrl = 'https://www.google.com/search';
+async function searchOnBing(query) {
+    const baseUrl = 'https://www.bing.com/search';
     const encodedQuery = encodeURIComponent(query);
     const url = `${baseUrl}?q=${encodedQuery}`;
 
@@ -68,7 +68,7 @@ async function searchOnGoogle(query) {
         const response = await axios.get(url);
         const html = response.data;
         const match = html.match(/https:\/\/www\.letras\.mus\.br\/[^'"\s&]+/);
-
+console.log(html);
         if (match && match[0]) {
             const firstLink = decodeURIComponent(match[0]);
 
@@ -83,6 +83,7 @@ async function searchOnGoogle(query) {
                     return '';
                 }
             }
+
         } else {
             console.log('Nenhum link encontrado.');
             return '';
@@ -92,6 +93,7 @@ async function searchOnGoogle(query) {
         return '';
     }
 }
+
 
 async function parseSearchResponseToList(html) {
 
