@@ -1,13 +1,14 @@
 {
-  "name": "hol",
-  "version": "1.0.0",
+  "name": "get-letras",
+  "version": "2.0.0",
   "description": "<p align=\"center\"></p> <h1 align=\"center\">     Autor: Everton Lourens     <br>     Instagram: <a href=\"https://www.instagram.com/evertonlourens/\">@evertonlourens</a> </h1> <p align=\"center\">🚀 Projeto criado com o intuito de facilitar a busca de letras de músicas nas igrejas.</p> <br>",
   "main": "main.js",
   "scripts": {
     "start": "electron main.js",
     "dev": "electron main.js",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "installer": "electron-builder"
   },
   "author": "",
   "license": "ISC",
@@ -37,7 +38,7 @@
     },
     "win": {
       "target": "nsis",
-      "icon": "path/to/your/icon.ico"
+      "icon": "lupa.png"
     }
   }
 }
