@@ -28,9 +28,9 @@ Imagem exemplo 3:
   
 ## Tecnologias Utilizadas
 
-- Linguagem de programação: **Node.js**
-- Utilização de requisições HTTP para os motores de busca e para o site Letras.mus.br.
-- Manipulação de HTML para extração de conteúdo.
+- **Linguagem de programação:** `Node.js`
+- **Requisições HTTP:** Utilização de requisições HTTP para interagir com motores de busca e o site `Letras.mus.br`.
+- **Manipulação de HTML:** Extração de conteúdo através da manipulação de HTML utilizando a biblioteca `Cheerio`.
 
 ## Como Funciona
 
