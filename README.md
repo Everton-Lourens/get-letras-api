@@ -46,7 +46,7 @@ Imagem exemplo 3:
 
 ## Exemplo de Uso
 
-Suponha que você queira buscar a letra da música "Fernandinho, uma coisa peço ao senhor":
+Suponha que você queira buscar a letra da música "Fernandinho, uma coisa peço ao Senhor":
 
 ```bash
 searchOnMultipleEngines('Fernandinho, uma coisa peço ao Senhor gospel site:letras.mus.br');
