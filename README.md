@@ -3,7 +3,7 @@
 Este aplicativo foi desenvolvido para solucionar um problema da igreja.
 Vi que tínhamos um problema na mídia da igreja que faço parte e criei a solução.
 Sempre que alguém cantava uma música que não tinha cadastrado no programa do projetor do telão, tínhamos que fazer tudo isso de forma manual.
-O programa busca letras de músicas gospel diretamente do site [Letras.mus.br](https://www.letras.mus.br/) utilizando uma pesquisa automatizada nos motores de busca.
+O programa busca letras de músicas gospel diretamente do site [letras.mus.br](https://www.letras.mus.br/) utilizando uma pesquisa automatizada nos motores de busca.
 
 Imagem exemplo 1:
   ```bash
@@ -22,14 +22,14 @@ Imagem exemplo 3:
 
 ## Funcionalidades
 
-- Realiza uma busca automatizada através de múltiplos motores de busca até localizar o site "`Letras.mus.br`" com a letra da música pesquisada (Obs: inclui em todas as pesquisas a palavra-chave "`gospel`". Isso garante resultados relevantes para o contexto de igrejas, filtrando letras de músicas não gospel.).
-- Retorna o primeiro resultado da pesquisa do buscador que encontrou o link do site "`Letras.mus.br`", redirecionando para o site e realizando a extração do conteúdo da pagina (com a letra da música), removendo os elementos HTML indesejados.
+- Realiza uma busca automatizada através de múltiplos motores de busca até localizar o site "`letras.mus.br`" com a letra da música pesquisada (Obs: inclui em todas as pesquisas a palavra-chave "`gospel`". Isso garante resultados relevantes para o contexto de igrejas, filtrando letras de músicas não gospel.).
+- Retorna o primeiro resultado da pesquisa do buscador que encontrou o link do site "`letras.mus.br`", redirecionando para o site e realizando a extração do conteúdo da pagina (com a letra da música), removendo os elementos HTML indesejados.
 - Retorna a letra da música, artista e título.
   
 ## Tecnologias Utilizadas
 
 - **Linguagem de programação:** `Node.js`
-- **Requisições HTTP:** Utilização de requisições HTTP para interagir com motores de busca e o site `Letras.mus.br`.
+- **Requisições HTTP:** Utilização de requisições HTTP para interagir com motores de busca e o site `letras.mus.br`.
 - **Manipulação de HTML:** Extração de conteúdo através da manipulação de HTML utilizando a biblioteca `Cheerio`.
 
 ## Como Funciona
@@ -41,7 +41,7 @@ Imagem exemplo 3:
     query + ' gospel site:letras.mus.br'
     ```
 
-3. O primeiro link retornado pela pesquisa dos motores de busca, que aponta para o site [Letras.mus.br](https://www.letras.mus.br/), é acessado.
+3. O primeiro link retornado pela pesquisa dos motores de busca, que aponta para o site [letras.mus.br](https://www.letras.mus.br/), é acessado.
 4. O conteúdo da página é analisado e a letra da música é extraída, removendo os elementos HTML indesejados.
 
 ## Exemplo de Uso
