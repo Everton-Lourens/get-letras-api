@@ -93,6 +93,27 @@
     .error {
       background-color: red;
     }
+
+    .loading-ball {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #fff;
+      border-top: 5px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+      /* Espaço entre a bolinha e o texto */
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 
@@ -121,11 +142,24 @@
     <pre id="lyrics"></pre>
   </div>
 
+  <div id="loading-popup"
+    style="visibility: hidden; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 24px; z-index: 1000;">
+    <div class="loading-ball"></div>
+    <span>Pesquisando louvor...</span>
+  </div>
+
+
+
   <script>
-      document.getElementById('searchInput').focus();
+    document.getElementById('searchInput').focus();
     function search() {
       const searchInput = document.getElementById('searchInput').value;
+      const popup = document.getElementById('loading-popup');
+
+      popup.style.visibility = 'visible'; // Torna o popup visível
+      popup.style.opacity = '1'; // Define a opacidade para garantir que ele apareça
       changeColor('btn-search', false)
+
       fetch(`http://localhost:3000/search?q=${searchInput}`)
         .then(response => response.json())
         .then(data => {
@@ -149,7 +183,13 @@
           }
 
         })
-        .catch(error => console.log('Erro na busca de letras.' + error));
+        .catch(error => {
+          console.log('Erro na busca de letras: ' + error);
+          alert('Ocorreu um erro ao buscar a letra.');
+        })
+        .finally(() => {
+          popup.style.visibility = 'hidden'; // Torna o popup invisível novamente
+        });
     }
 
     document.addEventListener('keydown', function (event) {

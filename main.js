@@ -49,49 +49,79 @@ app.on('activate', function () {
 });
 
 
-
-
 async function init(query) {
     try {
-        return await searchOnBing(query + ' gospel site:letras.mus.br');
+        return await searchOnMultipleEngines(query + ' gospel site:letras.mus.br');
     } catch (error) {
         console.error('Erro ao ler o arquivo:', error);
     }
 }
 
-async function searchOnBing(query) {
-    const baseUrl = 'https://www.bing.com/search';
+async function searchOnMultipleEngines(query) {
+    const searchEngines = [
+        { name: "Bing", baseUrl: "https://www.bing.com/search", queryParam: "q" },
+        { name: "Yahoo", baseUrl: "https://search.yahoo.com/search", queryParam: "p" },
+        { name: "AOL", baseUrl: "https://search.aol.com/aol/search", queryParam: "q" },
+        { name: "Brave", baseUrl: "https://search.brave.com/search", queryParam: "q" },
+        { name: "Google", baseUrl: "https://www.google.com/search", queryParam: "q" },
+        //{ name: "Yandex", baseUrl: "https://yandex.com/search/", queryParam: "text" },
+        //{ name: "Ecosia", baseUrl: "https://www.ecosia.org/search", queryParam: "q" },
+        //{ name: "StartPage", baseUrl: "https://www.startpage.com/sp/search", queryParam: "query" },
+        //{ name: "MetaGer", baseUrl: "https://metager.org/meta/meta.ger3", queryParam: "eingabe" },
+        //{ name: "DuckDuckGo", baseUrl: "https://duckduckgo.com/", queryParam: "q" },
+    ];
+
     const encodedQuery = encodeURIComponent(query);
-    const url = `${baseUrl}?q=${encodedQuery}`;
 
-    try {
-        const response = await axios.get(url);
-        const html = response.data;
-        const match = html.match(/https:\/\/www\.letras\.mus\.br\/[^'"\s&]+/);
-console.log(html);
-        if (match && match[0]) {
-            const firstLink = decodeURIComponent(match[0]);
+    for (const engine of searchEngines) {
+        const url = `${engine.baseUrl}?${engine.queryParam}=${encodedQuery}`;
+        console.log(`Tentando no ${engine.name}: ${url}`);
 
-            if (firstLink) {
-                try {
-                    const response = await axios.get(firstLink);
+        try {
+            const response = await axios.get(url);
+            const html = response.data;
+            const match = html.match(/https:\/\/www\.letras\.mus\.br\/[^'"\s&]+/);
 
-                    return await parseSearchResponseToList(response.data);
+            if (match && match[0]) {
+                /*
+                    const link = decodeURIComponent(match[0]);
+                    return link;
+                */
+                const link = decodeURIComponent(match[0]);
 
-                } catch (error) {
-                    console.error('Erro ao pesquisar letra:', error);
-                    return '';
+                if (link) {
+                    console.log(`Link encontrado no ${engine.name}: ${link}`);
+                    try {
+                        const response = await axios.get(link);
+
+                        return await parseSearchResponseToList(response.data);
+
+                    } catch (error) {
+                        console.error('Erro ao pesquisar letra:', error);
+                        return '';
+                    }
                 }
             }
 
-        } else {
-            console.log('Nenhum link encontrado.');
-            return '';
+        } catch (error) {
+            if (error.response && error.response.status === 429) {
+                console.warn(`Erro 429 no ${engine.name}. Pulando para o próximo...`);
+            } else {
+                console.error(`Erro ao tentar no ${engine.name}: ${error.message}`);
+            }
         }
-    } catch (error) {
-        console.error('Ocorreu um erro durante a solicitação:', error);
-        return '';
+
+        await sleep(500);
     }
+
+    console.log("Nenhum link encontrado em nenhum motor de busca.");
+    return null;
+}
+
+
+// Função para adicionar atrasos entre requisições
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 
