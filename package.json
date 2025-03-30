@@ -1,44 +1,26 @@
 {
   "name": "get-letras",
-  "version": "2.0.0",
-  "description": "<p align=\"center\"></p> <h1 align=\"center\">     Autor: Everton Lourens     <br>     Instagram: <a href=\"https://www.instagram.com/evertonlourens/\">@evertonlourens</a> </h1> <p align=\"center\">🚀 Projeto criado com o intuito de facilitar a busca de letras de músicas nas igrejas.</p> <br>",
-  "main": "main.js",
+  "version": "1.0.0",
+  "description": "Buscador de letras de música",
+  "main": "index.js",
   "scripts": {
-    "start": "electron main.js",
-    "dev": "electron main.js",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "installer": "electron-builder"
+    "setup": "npm install && npm install --prefix backend && npm install --prefix frontend",
+    "back": "npm run dev --prefix backend",
+    "front": "npm run dev --prefix frontend",
+    "start": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Everton-Lourens/Get-Letras.git"
+  },
+  "author": "Everton Lourens",
   "license": "ISC",
-  "dependencies": {
-    "axios": "^0.21.1",
-    "cheerio": "^1.0.0-rc.12",
-    "express": "^4.18.2"
+  "bugs": {
+    "url": "https://github.com/Everton-Lourens/Get-Letras/issues"
   },
+  "homepage": "https://github.com/Everton-Lourens/Get-Letras#readme",
   "devDependencies": {
-    "electron": "^28.0.0",
-    "electron-builder": "^22.10.5"
-  },
-  "keywords": [],
-  "build": {
-    "appId": "com.example.yourapp",
-    "files": [
-      "main.js",
-      "index.html",
-      "your-other-files-and-folders"
-    ],
-    "directories": {
-      "output": "dist"
-    },
-    "mac": {
-      "target": "dmg",
-      "icon": "path/to/your/icon.ico"
-    },
-    "win": {
-      "target": "nsis",
-      "icon": "lupa.png"
-    }
+    "concurrently": "^9.1.2"
   }
 }

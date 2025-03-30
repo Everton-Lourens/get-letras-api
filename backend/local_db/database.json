@@ -1,0 +1,43 @@
+{
+  "database": {
+    "stage_0": {
+      "message_1": "👋 Bem-vindo(a)\nSou a Megan, Assistente Virtual.\nPosso te ajudar? 🙋‍♀ 🥰\n\n——————————\n1️⃣ –> FAZER PEDIDO\n2️⃣ → TAXA de Entrega\n3️⃣ → FALAR C/ Atendente"
+    },
+    "stage_1": {
+      "message_1": "1️⃣ –> FAZER PEDIDO \n3️⃣ → FALAR C/ Atendente"
+    },
+    "stage_4": {
+      "message_1": "✍️ AGORA DIGITE SEU ENDEREÇO\n––> EM APENAS 1 MENSAGEM! <––\n\nPor Exemplo:\n\n( Rua,Número,Bairro,Referência )"
+    },
+    "stage_5": {
+      "message_1": "–>🛑 –FORMA DE PAGAMENTO:\n——————————\n1️⃣ –> Pix\n2️⃣ → Dinheiro\n3️⃣ → Cartão"
+    },
+    "stage_6": {
+      "message_1": "Você será encaminhado para um dos nossos atendentes,\naguarde um momento, por favor. 🥰"
+    },
+    "attendant_stage": {
+      "message_1": "Você será encaminhado para um dos nossos atendentes,\naguarde um momento, por favor. 🥰"
+    },
+    "all_items": {
+      "1": {
+        "description": "Pequena: R$ 20,00",
+        "id": "f47c3d29-1f76-4d98-8cd7-7fc5d2d6b245"
+      },
+      "2": {
+        "description": "Média: R$ 25,00",
+        "id": "b2d7c4f1-7cc8-4e67-b417-7127f76a8b29"
+      },
+      "3": {
+        "description": "Grande: R$ 30,00",
+        "id": "9e5f8a3a-926b-43f1-a2f3-0339b515bbd3"
+      },
+      "4": {
+        "description": "Família: R$ 35,00",
+        "id": "4d2b0a9e-61bc-42e0-9d5b-d6c4e5fcb3d9"
+      }
+    },
+    "delivery_tax": {
+      "message_1": "TAXA DE ENTREGA:\n——————————\n🛵 → Centro: R$ 5,00\n🛵 → Avenida Sul: R$ 8,00\n🛵 → Avenida Norte: R$ 10,00\n——————————\n1️⃣ –> FAZER PEDIDO \n3️⃣ → FALAR C/ Atendente"
+    }
+  }
+}
