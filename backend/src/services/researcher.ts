@@ -3,9 +3,9 @@ import { logger } from "../helpers/logger.js";
 
 export async function searchOnMultipleEngines(query: string): Promise<string | null> {
     const searchEngines = [
+        { name: "AOL", baseUrl: "https://search.aol.com/aol/search", queryParam: "q" },
         { name: "Bing", baseUrl: "https://www.bing.com/search", queryParam: "q" },
         { name: "Yahoo", baseUrl: "https://search.yahoo.com/search", queryParam: "p" },
-        { name: "AOL", baseUrl: "https://search.aol.com/aol/search", queryParam: "q" },
         { name: "Brave", baseUrl: "https://search.brave.com/search", queryParam: "q" },
         { name: "Google", baseUrl: "https://www.google.com/search", queryParam: "q" },
         //{ name: "Yandex", baseUrl: "https://yandex.com/search/", queryParam: "text" },

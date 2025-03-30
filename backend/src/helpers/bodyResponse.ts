@@ -1,32 +1,26 @@
 interface FullLyric {
+   id: string;
    title: string;
    artist: string;
-   lyric: string;
+   author: string;
+   lyrics: string;
 }
 
 export function formatApiResponse({
-   status,
-   message,
    fullLyric = {} as FullLyric,
-   errorCode = '',
 }: {
-   status: number;
-   message: string;
    fullLyric?: FullLyric;
-   errorCode?: string;
 }): {
-   status: number;
-   message: string;
-   timestamp: string;
    fullLyric: FullLyric;
-   error_code: string;
 } {
    return {
-      status,
-      message,
-      timestamp: new Date().toISOString(),
-      fullLyric,
-      error_code: errorCode,
+      fullLyric: {
+         id: fullLyric.id,
+         title: fullLyric.title,
+         artist: fullLyric.artist,
+         author: fullLyric.author,
+         lyrics: fullLyric.lyrics,
+      },
    };
 }
 

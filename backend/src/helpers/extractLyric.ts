@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
 import { logger } from '../helpers/logger.js';
 
-export async function getOnlyTheLyric(html: string | null): Promise<{ title: string, artist: string, lyric: string }> {
+export async function getOnlyTheLyrics(html: string | null): Promise<{ title: string, artist: string, lyrics: string }> {
     try {
         if (!html) {
             throw new Error('HTML vazio');
@@ -17,29 +17,31 @@ export async function getOnlyTheLyric(html: string | null): Promise<{ title: str
         const artist = splitTitleAndArtist[1];
 
         // Selecionar o elemento que contém a letra da música
-        const letraContainer = $('.lyric-original');
+        const letraContainer = $('.lyrics-original');
+        console.log($('.lyrics-original').html());
 
         // Extrair o texto bruto da letra
-        let lyric = letraContainer.html();
+        let lyrics = letraContainer.html();
 
-        if (!lyric) {
-            throw new Error('Letra não encontrada');
+        if (!lyrics) {
+            throw new Error('Letra nao encontrada');
         }
 
         // Substituir <br> por \n
-        lyric = lyric.replace(/<br\s*\/?>/gi, '\n');
+        lyrics = lyrics.replace(/<br\s*\/?>/gi, '\n');
 
         // Substituir <p> por \n\n
-        lyric = lyric.replace(/<\/?p[^>]*>/gi, '\n');
+        lyrics = lyrics.replace(/<\/?p[^>]*>/gi, '\n');
 
         // Remover tags restantes
-        lyric = lyric.replace(/<\/?[^>]+(>|$)/g, '');
+        lyrics = lyrics.replace(/<\/?[^>]+(>|$)/g, '');
 
-        lyric = lyric.trim();
-        return { title, artist, lyric };
+        lyrics = lyrics.trim();
+        return { title, artist, lyrics };
 
-    } catch (error) {
-        logger.error('Erro ao processar a letra:', error);
-        return { title: '', artist: '', lyric: '' };
+    } catch (error: any) {
+        logger.error('Erro ao processar a letra:');
+        logger.error(error.message);
+        return { title: '', artist: '', lyrics: '' };
     }
 }
