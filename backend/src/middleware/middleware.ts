@@ -5,11 +5,10 @@ import { logger } from '../helpers/logger.js';
 
 export const validateBody = (req: Request): boolean => {
     try {
-        const { id, auth } = req?.body;
+        const { text, title, artist, lyrics } = req.query;
+        console.log('Parâmetros recebidos:', { text, title, artist, lyrics });
 
-        if (!validate(id)) return false;
-
-        if (typeof auth !== 'string') return false;
+        if (!text || typeof text !== 'string' || text.trim() === '') return false;
 
         return true;
     } catch (error) {
@@ -20,13 +19,10 @@ export const validateBody = (req: Request): boolean => {
 export const validationFilter = (req: Request, res: Response, next: NextFunction): void => {
     try {
         if (!validateBody(req)) {
-            logger.error('Erro de validação do corpo da requisição:', req.body);
+            logger.error('Erro de validação do corpo da requisição:', req.query);
             // Type 'Response<any, Record<string, any>>' is not assignable to type 'void'
             res.status(422).json({ message: 'Dados inválidos no corpo da requisição.' });
             return;
-        }
-        if (!req?.body?.auth) {
-            req.body.id = uuid();
         }
         next();
     } catch (error) {

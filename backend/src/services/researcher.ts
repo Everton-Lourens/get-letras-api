@@ -19,16 +19,12 @@ export async function searchOnMultipleEngines(query: string): Promise<string | n
 
     for (const engine of searchEngines) {
         const url = `${engine.baseUrl}?${engine.queryParam}=${encodedQuery}`;
-        logger.info(`Tentando no ${engine.name}: ${url}`);
+        //logger.info(`Tentando no ${engine.name}: ${url}`);
 
         try {
-            logger.info(`11111111111`);
             const response = await axios.get(url, { timeout: 10000 });
-            logger.info(`222222222222`);
             const html = response.data;
-            logger.info(`33333333333`);
             const match = html.match(/https:\/\/www\.letras\.mus\.br\/[^'"\s&]+/);
-            logger.info(`44444444444`);
             if (match && match[0]) {
                 /*
                     const link = decodeURIComponent(match[0]);
@@ -37,14 +33,14 @@ export async function searchOnMultipleEngines(query: string): Promise<string | n
                 const link = decodeURIComponent(match[0]);
 
                 if (link) {
-                    logger.info(`Link encontrado no ${engine.name}: ${link}`);
+                    //logger.info(`Link encontrado no ${engine.name}: ${link}`);
                     return link;
                 }
             }
 
         } catch (error: any) {
             if (error.response && error.response.status === 429) {
-                console.warn(`Erro 429 no ${engine.name}. Pulando para o próximo...`);
+                logger.warn(`Erro 429 no ${engine.name}. Pulando para o próximo...`);
             } else {
                 logger.error(`Erro ao tentar no ${engine.name}: ${error.message}`);
             }

@@ -5,17 +5,15 @@ import { searchOnMultipleEngines } from "../services/researcher.js";
 import { getRawSiteWithLyrics } from "../services/rawSiteWithLyrics.js";
 import { getOnlyTheLyrics } from "../helpers/extractLyric.js";
 
-interface Array<T> {
-    status: number;
-    message: string;
-    fullLyric: {
-        title: string;
-        artist: string;
-        lyrics: string;
-    }
-}
+type LyricArray = Array<{
+    id: string;
+    title: string;
+    artist: string;
+    author: string;
+    lyrics: string;
+}>;
 
-export async function getLyric(query: string): Promise<any> {
+export async function getLyric(query: string): Promise<LyricArray> {
     try {
         //return await searchOnMultipleEngines(query + ' gospel site:letras.mus.br');
         const link = await searchOnMultipleEngines(query + ' site:letras.mus.br');

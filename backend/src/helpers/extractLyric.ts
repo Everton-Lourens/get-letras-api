@@ -17,8 +17,7 @@ export async function getOnlyTheLyrics(html: string | null): Promise<{ title: st
         const artist = splitTitleAndArtist[1];
 
         // Selecionar o elemento que contém a letra da música
-        const letraContainer = $('.lyrics-original');
-        console.log($('.lyrics-original').html());
+        const letraContainer = $('.lyric-original');
 
         // Extrair o texto bruto da letra
         let lyrics = letraContainer.html();
