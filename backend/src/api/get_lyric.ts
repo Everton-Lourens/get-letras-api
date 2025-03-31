@@ -39,7 +39,9 @@ export async function getLyric(query: string): Promise<LyricArray> {
                 lyrics: '',
             }];
         }
-        const { title, artist, lyrics } = await getOnlyTheLyrics(html);
+        var { title, artist, lyrics } = await getOnlyTheLyrics(html, true);
+
+
         return [{
             id: uuid(),
             title,

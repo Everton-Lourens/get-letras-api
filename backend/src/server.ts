@@ -58,7 +58,6 @@ apiRouter.get('/get', (req, res) => {
 
     // Busca pela música com o ID fornecido
     const song = arrayOfLyric.find((song: { id: string | ParsedQs | (string | ParsedQs)[] | undefined; }) => song.id === id);
-
     // Se encontrar a música, retorna ela; se não, retorna erro 404
     if (song) {
         res.status(200).json(song).end();
