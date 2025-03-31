@@ -52,18 +52,19 @@ apiRouter.get('/search', validationFilter, async (req, res) => {
 
 apiRouter.get('/get', (req, res) => {
     // Pega o parâmetro 'id' da URL
-    const { id } = req.query;
-
+    const id = req?.query?.id as string;
+    if (!id) {
+        res.status(422).json({ message: 'ID de música inválido' }).end();
+        return;
+    }
     console.log('ID recebido:', id);
-
     // Busca pela música com o ID fornecido
     const song = arrayOfLyric.find((song: { id: string | ParsedQs | (string | ParsedQs)[] | undefined; }) => song.id === id);
     // Se encontrar a música, retorna ela; se não, retorna erro 404
-    if (song) {
+    if (song)
         res.status(200).json(song).end();
-    } else {
+    else
         res.status(404).json({ message: 'Música não encontrada' }).end();
-    }
 });
 
 
