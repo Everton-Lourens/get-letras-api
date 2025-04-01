@@ -74,11 +74,8 @@ apiRouter.get('/search', validationFilter, async (req, res) => {
 
 
 apiRouter.get('/get', validationUUID, async (req, res) => {
-    const id = typeof req?.query?.id === 'string' ? req?.query?.id : undefined;
-    if (!id) {
-        res.status(422).json({ message: 'UUID inválido.' }).end();
-        return;
-    }
+    const id = req?.query?.id as string;
+
     try {
         const response = await findMusicById(id);
         if (response) {
