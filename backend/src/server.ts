@@ -8,7 +8,6 @@ import { getLyric } from './api/get_lyric.js';
 import { logger } from './helpers/logger.js';
 import { findMusic, findMusicById } from './music/findMusic.js';
 import { mySqliteMusic } from './database/sqlite.js';
-import { Console } from 'console';
 ////////////
 // apenas para exemplo do body backend
 // PESSIMAS PRÁTICAS: SALVANDO EM MEMÓRIA APENAS PARA EXEMPIFICAR O BODY DO BACKEND
@@ -48,15 +47,13 @@ apiRouter.get('/search', validationFilter, async (req, res) => {
     const searchMusicDatabase = await findMusic({ text, title, artist, lyrics });
     if (searchMusicDatabase !== null) {
         res.status(200).json(searchMusicDatabase).end();
-        console.log('Música encontrada no banco de dados:');
-        console.log(searchMusicDatabase);
+        logger.info('Música encontrada no banco de dados:');
     } else {
         await getLyric(text as string).then((response: Lyric) => {
             // Salvando a letra no banco de dados
             const newMusic = new mySqliteMusic();
             newMusic.save(response);
-            console.log('Música encontrada nos motores de busca:');
-            console.log(response);
+            logger.info('Música encontrada nos motores de busca:');
             // retornando a letra
             res.status(201).json(
                 [response]

@@ -6,7 +6,7 @@ import { logger } from '../helpers/logger.js';
 export const validateBody = (req: Request): boolean => {
     try {
         const { text, title, artist, lyrics } = req.query;
-        console.log('Parâmetros recebidos:', { text, title, artist, lyrics });
+        logger.info('Parâmetros recebidos:', { text, title, artist, lyrics });
 
         if (!text || typeof text !== 'string' || text.trim() === '') return false;
 
@@ -39,7 +39,7 @@ export const validationUUID = (req: Request, res: Response, next: NextFunction):
             res.status(422).json({ message: 'UUID inválido.' });
             return;
         }
-        console.info('ID recebido:', id);
+        logger.info('ID recebido:', id);
         next();
     } catch (error) {
         logger.error(error);
