@@ -160,14 +160,16 @@
       popup.style.opacity = '1'; // Define a opacidade para garantir que ele apareça
       changeColor('btn-search', false)
 
-      fetch(`http://localhost:3009/search?q=${searchInput}`)
+      fetch(`http://localhost:9999/v1/lyrics/search?text=${searchInput}+gospel+religioso`)
         .then(response => response.json())
         .then(data => {
           if (data) {
-            const { title, artist, letraBruta } = data;
+            console.log({ title, artist, author, lyrics });
+            const { title, artist, author, lyrics } = data;
             document.getElementById('title').textContent = title;
             document.getElementById('artist').textContent = artist;
-            document.getElementById('lyrics').textContent = letraBruta;
+            document.getElementById('author').textContent = author;
+            document.getElementById('lyrics').textContent = lyrics;
             document.getElementById('searchInput').value = '';
             toggleDiv(false);
           } else {

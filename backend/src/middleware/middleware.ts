@@ -31,6 +31,22 @@ export const validationFilter = (req: Request, res: Response, next: NextFunction
     }
 };
 
+export const validationUUID = (req: Request, res: Response, next: NextFunction): void => {
+    try {
+        const { id } = req?.query;
+        if (!id || !validate(id)) {
+            logger.error('Erro de validação do UUID:', id);
+            res.status(422).json({ message: 'UUID inválido.' });
+            return;
+        }
+        console.info('ID recebido:', id);
+        next();
+    } catch (error) {
+        logger.error(error);
+        res.status(500).json({ message: 'Erro interno no servidor. Tente novamente mais tarde.' });
+    }
+};
+
 export const errorHandler = (err: any, req: Request, res: Response, _: NextFunction): void => {
     res.status(err.status || 500).end();
 };

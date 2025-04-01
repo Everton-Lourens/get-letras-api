@@ -1,12 +1,15 @@
-import express, { Router } from 'express';
+import express, { Router, Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import cluster from 'cluster';
 import process from 'process';
-import { errorHandler, validationFilter } from './middleware/middleware.js';
+import { errorHandler, validationFilter, validationUUID } from './middleware/middleware.js';
 import { getLyric } from './api/get_lyric.js';
 import { logger } from './helpers/logger.js';
+import { validate, v4 as uuid } from 'uuid';
 import { ParsedQs } from 'qs';
+import { mySqliteMusic } from './database/sqlite.js';
+import { findMusic } from './music/findMusic.js';
 ////////////
 // apenas para exemplo do body backend
 // PESSIMAS PRÁTICAS: SALVANDO EM MEMÓRIA APENAS PARA EXEMPIFICAR O BODY DO BACKEND
@@ -17,6 +20,7 @@ type LyricArray = Array<{
     artist: string;
     author: string;
     lyrics: string;
+    path: string
 }>;
 ///////////
 const TIMEOUT = Number(process.env.REQ_TIMEOUT) || 5000;
@@ -50,21 +54,25 @@ apiRouter.get('/search', validationFilter, async (req, res) => {
 });
 
 
-apiRouter.get('/get', (req, res) => {
-    // Pega o parâmetro 'id' da URL
-    const id = req?.query?.id as string;
+apiRouter.get('/get', validationUUID, async (req: Request, res: Response): Promise<void> => {
+    const id = typeof req?.query?.id === 'string' ? req.query.id : undefined;
     if (!id) {
-        res.status(422).json({ message: 'ID de música inválido' }).end();
+        res.status(422).json({ message: 'UUID inválido.' }).end();
         return;
     }
-    console.log('ID recebido:', id);
-    // Busca pela música com o ID fornecido
-    const song = arrayOfLyric.find((song: { id: string | ParsedQs | (string | ParsedQs)[] | undefined; }) => song.id === id);
-    // Se encontrar a música, retorna ela; se não, retorna erro 404
-    if (song)
-        res.status(200).json(song).end();
-    else
-        res.status(404).json({ message: 'Música não encontrada' }).end();
+
+    try {
+        const response = await findMusic(id);
+        if (response) {
+            res.status(200).json(response).end();
+        } else {
+            res.status(404).json({ message: 'Música não encontrada' }).end();
+        }
+    } catch (error: any) {
+        // Se ocorrer um erro, retorna erro 500
+        logger.error('Erro ao buscar a musica:', error);
+        res.status(500).json({ message: 'Erro ao buscar a musica' }).end();
+    }
 });
 
 

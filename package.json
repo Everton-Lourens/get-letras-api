@@ -1,6 +1,7 @@
 {
   "name": "get-letras",
   "version": "1.0.0",
+  "type": "module",
   "description": "Buscador de letras de música",
   "main": "index.js",
   "scripts": {
