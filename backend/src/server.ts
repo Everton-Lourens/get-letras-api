@@ -1,5 +1,4 @@
 import express, { Router, Request, Response } from 'express';
-import cors from 'cors';
 import bodyParser from 'body-parser';
 import cluster from 'cluster';
 import process from 'process';
@@ -8,10 +7,7 @@ import { getLyric } from './api/get_lyric.js';
 import { logger } from './helpers/logger.js';
 import { findMusic, findMusicById } from './music/findMusic.js';
 import { mySqliteMusic } from './database/sqlite.js';
-////////////
-// apenas para exemplo do body backend
-// PESSIMAS PRÁTICAS: SALVANDO EM MEMÓRIA APENAS PARA EXEMPIFICAR O BODY DO BACKEND
-//const arrayOfLyric: any = [];
+
 type Lyric = {
     id: string;
     title: string;
@@ -20,31 +16,43 @@ type Lyric = {
     lyrics: string;
     path: string
 };
-///////////
+
+type QueryLyric = {
+    text: string;
+    title: boolean;
+    artist: boolean;
+    author: boolean;
+    lyrics: boolean;
+};
+
 const TIMEOUT = Number(process.env.REQ_TIMEOUT) || 5000;
-const PORT = process.env.NODE_ENV === 'production' ? (Number(process.env.PORT) || 8080) : 9999;
+const PORT = process.env.NODE_ENV === 'production' ? (Number(process.env.PORT) || 8080) : 9999; // 8080 para usar dentro do docker e 9999 para usar localmente
 
 const app = express();
 const apiRouter = Router();
-
-app.use(cors({
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-}));
 
 app.use(bodyParser.json());
 app.use('/v1/lyrics', apiRouter);
 
 
 apiRouter.get('/search', validationFilter, async (req, res) => {
-    const text = typeof req?.query?.text === 'string' ? req?.query?.text : '';
-    const title = typeof req?.query?.title === 'string' ? true : false;
-    const artist = typeof req?.query?.artist === 'string' ? true : false;
-    const lyrics = typeof req?.query?.lyrics === 'string' ? true : false;
 
-    const searchMusicDatabase = await findMusic({ text, title, artist, lyrics });
+    const text = req?.query['text'] as string;
+    const title = req?.query['title'] === 'true';
+    const artist = req?.query['artist'] === 'true';
+    const author = req?.query['author'] === 'true';
+    const lyrics = req?.query['lyrics'] === 'true';
+
+    const query: QueryLyric = {
+        text,
+        title,
+        artist,
+        author,
+        lyrics,
+    };
+
+    const searchMusicDatabase = await findMusic(query);
+
     if (searchMusicDatabase !== null) {
         res.status(200).json(searchMusicDatabase).end();
         logger.info('Música encontrada no banco de dados:');
@@ -65,7 +73,7 @@ apiRouter.get('/search', validationFilter, async (req, res) => {
 });
 
 
-apiRouter.get('/get', validationUUID, async (req: Request, res: Response): Promise<void> => {
+apiRouter.get('/get', validationUUID, async (req, res) => {
     const id = typeof req?.query?.id === 'string' ? req?.query?.id : undefined;
     if (!id) {
         res.status(422).json({ message: 'UUID inválido.' }).end();

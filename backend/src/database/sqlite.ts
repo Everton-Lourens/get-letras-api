@@ -58,10 +58,11 @@ export class mySqliteMusic {
     return true;
   }
 
-  async getMusicByQuery({ text, title = false, artist = false, lyrics = false }: {
+  async getMusicByQuery({ text, title = false, artist = false, author = false, lyrics = false }: {
     text: string;
     title?: boolean;
     artist?: boolean;
+    author?: boolean;
     lyrics?: boolean;
   }) {
     try {
@@ -71,19 +72,26 @@ export class mySqliteMusic {
         return;
       }
 
-      const query = `SELECT * FROM songs WHERE ${title ? 'title LIKE ?' : ''} ${artist ? 'OR artist LIKE ?' : ''} ${lyrics ? 'OR lyrics LIKE ?' : ''}`;
+      const query = `SELECT * FROM songs WHERE ${title ? 'title LIKE ?' : ''} ${artist ? 'OR artist LIKE ?' : ''} ${author ? 'OR author LIKE ?' : ''} ${lyrics ? 'OR lyrics LIKE ?' : ''}`;
+
       const params: string[] = [];
+
       if (title) params.push(`${text}%`);
       if (artist) params.push(`${text}%`);
+      if (author) params.push(`${text}%`);
       if (lyrics) params.push(`${text}%`);
+
       const songs = await this.db.all(query, params);
+
       if (!songs.length) {
         logger.info(`Música com texto "${text}" não encontrada`);
         return;
       }
+
       logger.info(`Música com texto "${text}" encontrada: ${songs.map(song => song.title).join(', ')}`);
       await this.closeDB();
       return songs;
+
     } catch (error) {
       logger.error('Erro no banco de dados local: getMusicByQuery()');
       logger.error(error);

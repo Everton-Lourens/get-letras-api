@@ -4,16 +4,12 @@ import { validate, v4 as uuid } from 'uuid';
 import { logger } from '../helpers/logger.js';
 
 export const validateBody = (req: Request): boolean => {
-    try {
-        const { text, title, artist, lyrics } = req.query;
-        logger.info('Parâmetros recebidos:', { text, title, artist, lyrics });
+    if (!req?.query['text']) return false;
 
-        if (!text || typeof text !== 'string' || text.trim() === '') return false;
+    const { text } = req.query;
+    if (!text || typeof text !== 'string' || text.trim() === '') return false;
 
-        return true;
-    } catch (error) {
-        return false;
-    }
+    return true;
 };
 
 export const validationFilter = (req: Request, res: Response, next: NextFunction): void => {
@@ -33,13 +29,18 @@ export const validationFilter = (req: Request, res: Response, next: NextFunction
 
 export const validationUUID = (req: Request, res: Response, next: NextFunction): void => {
     try {
+        if (!req?.query['id']) {
+            res.status(422).json({ message: 'UUID não encontrado na requisição.' });
+            return;
+        }
+
         const { id } = req?.query;
         if (!id || !validate(id)) {
             logger.error('Erro de validação do UUID:', id);
             res.status(422).json({ message: 'UUID inválido.' });
             return;
         }
-        logger.info('ID recebido:', id);
+        logger.info('ID recebido para consulta no banco de dados:', id);
         next();
     } catch (error) {
         logger.error(error);

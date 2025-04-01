@@ -5,11 +5,15 @@ type QueryLyric = {
     text: string;
     title: boolean;
     artist: boolean;
+    author: boolean;
     lyrics: boolean;
 };
-export async function findMusic({ text, title, artist, lyrics }: QueryLyric): Promise<object | null> {
+
+export async function findMusic({ text, title, artist, author, lyrics }: QueryLyric): Promise<object | null> {
+
     const findMusic = new mySqliteMusic();
-    return findMusic.getMusicByQuery({ text, title, artist, lyrics }).then((response) => {
+
+    return findMusic.getMusicByQuery({ text, title, artist, author, lyrics }).then((response) => {
         if (response) {
             // Se a música for encontrada, retorna ela
             return response;
