@@ -6,14 +6,11 @@ import process from 'process';
 import { errorHandler, validationFilter, validationUUID } from './middleware/middleware.js';
 import { getLyric } from './api/get_lyric.js';
 import { logger } from './helpers/logger.js';
-import { validate, v4 as uuid } from 'uuid';
-import { ParsedQs } from 'qs';
-import { mySqliteMusic } from './database/sqlite.js';
-import { findMusic } from './music/findMusic.js';
+import { findMusic, findMusicById } from './music/findMusic.js';
 ////////////
 // apenas para exemplo do body backend
 // PESSIMAS PRÁTICAS: SALVANDO EM MEMÓRIA APENAS PARA EXEMPIFICAR O BODY DO BACKEND
-const arrayOfLyric: any = [];
+//const arrayOfLyric: any = [];
 type LyricArray = Array<{
     id: string;
     title: string;
@@ -41,8 +38,27 @@ app.use('/v1/lyrics', apiRouter);
 
 
 apiRouter.get('/search', validationFilter, async (req, res) => {
-    const text = req?.query?.text;
+    const text = typeof req?.query?.text === 'string' ? req?.query?.text : '';
+    const title = typeof req?.query?.title === 'string' ? true : false;
+    const artist = typeof req?.query?.artist === 'string' ? true : false;
+    const lyrics = typeof req?.query?.lyrics === 'string' ? true : false;
 
+    await findMusic({ text, title, artist, lyrics }).then((response: object | null) => {
+        if (response) {
+            // Se a música for encontrada, retorna ela
+            res.status(200).json(response).end();
+        } else {
+            // Se a musica nao for encontrada, retorna erro 404
+            res.status(404).json({ message: 'Música nao encontrada' }).end();
+        }
+    }).catch((error: any) => {
+        // Se ocorrer um erro, retorna erro 500
+        logger.error('Erro ao buscar a musica:');
+        logger.error(error);
+        res.status(500).json({ message: 'Erro ao buscar a musica' }).end();
+    });
+
+    /*
     await getLyric(text as string).then((response: LyricArray) => {
         arrayOfLyric.push(...response);
         res.status(201).json(
@@ -51,18 +67,18 @@ apiRouter.get('/search', validationFilter, async (req, res) => {
     }).catch(() => {
         res.status(422).end();
     });
+    */
 });
 
 
 apiRouter.get('/get', validationUUID, async (req: Request, res: Response): Promise<void> => {
-    const id = typeof req?.query?.id === 'string' ? req.query.id : undefined;
+    const id = typeof req?.query?.id === 'string' ? req?.query?.id : undefined;
     if (!id) {
         res.status(422).json({ message: 'UUID inválido.' }).end();
         return;
     }
-
     try {
-        const response = await findMusic(id);
+        const response = await findMusicById(id);
         if (response) {
             res.status(200).json(response).end();
         } else {
