@@ -7,18 +7,20 @@ import { errorHandler, validationFilter, validationUUID } from './middleware/mid
 import { getLyric } from './api/get_lyric.js';
 import { logger } from './helpers/logger.js';
 import { findMusic, findMusicById } from './music/findMusic.js';
+import { mySqliteMusic } from './database/sqlite.js';
+import { Console } from 'console';
 ////////////
 // apenas para exemplo do body backend
 // PESSIMAS PRÁTICAS: SALVANDO EM MEMÓRIA APENAS PARA EXEMPIFICAR O BODY DO BACKEND
 //const arrayOfLyric: any = [];
-type LyricArray = Array<{
+type Lyric = {
     id: string;
     title: string;
     artist: string;
     author: string;
     lyrics: string;
     path: string
-}>;
+};
 ///////////
 const TIMEOUT = Number(process.env.REQ_TIMEOUT) || 5000;
 const PORT = process.env.NODE_ENV === 'production' ? (Number(process.env.PORT) || 8080) : 9999;
@@ -43,31 +45,26 @@ apiRouter.get('/search', validationFilter, async (req, res) => {
     const artist = typeof req?.query?.artist === 'string' ? true : false;
     const lyrics = typeof req?.query?.lyrics === 'string' ? true : false;
 
-    await findMusic({ text, title, artist, lyrics }).then((response: object | null) => {
-        if (response) {
-            // Se a música for encontrada, retorna ela
-            res.status(200).json(response).end();
-        } else {
-            // Se a musica nao for encontrada, retorna erro 404
-            res.status(404).json({ message: 'Música nao encontrada' }).end();
-        }
-    }).catch((error: any) => {
-        // Se ocorrer um erro, retorna erro 500
-        logger.error('Erro ao buscar a musica:');
-        logger.error(error);
-        res.status(500).json({ message: 'Erro ao buscar a musica' }).end();
-    });
-
-    /*
-    await getLyric(text as string).then((response: LyricArray) => {
-        arrayOfLyric.push(...response);
-        res.status(201).json(
-            response
-        ).end();
-    }).catch(() => {
-        res.status(422).end();
-    });
-    */
+    const searchMusicDatabase = await findMusic({ text, title, artist, lyrics });
+    if (searchMusicDatabase !== null) {
+        res.status(200).json(searchMusicDatabase).end();
+        console.log('Música encontrada no banco de dados:');
+        console.log(searchMusicDatabase);
+    } else {
+        await getLyric(text as string).then((response: Lyric) => {
+            // Salvando a letra no banco de dados
+            const newMusic = new mySqliteMusic();
+            newMusic.save(response);
+            console.log('Música encontrada nos motores de busca:');
+            console.log(response);
+            // retornando a letra
+            res.status(201).json(
+                [response]
+            ).end();
+        }).catch(() => {
+            res.status(422).end();
+        });
+    }
 });
 
 

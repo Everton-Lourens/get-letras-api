@@ -3,31 +3,30 @@ import { v4 as uuid } from 'uuid';
 import { searchOnMultipleEngines } from "../services/researcher.js";
 import { getRawSiteWithLyrics } from "../services/rawSiteWithLyrics.js";
 import { getOnlyTheLyrics } from "../helpers/extractLyric.js";
-import { mySqliteMusic } from '../database/sqlite.js';
 
-type LyricArray = Array<{
+type Lyric = {
     id: string;
     title: string;
     artist: string;
     author: string;
     lyrics: string;
     path: string
-}>;
+};
 
-export async function getLyric(text: string): Promise<LyricArray> {
+export async function getLyric(text: string): Promise<Lyric> {
     try {
         // Consulta a letra no google ou qualquer outro motor de busca e pega o primeiro link do site "letras.mus.br"
         // Se o texto tiver algum caractere especial, remove e adiciona "site:letras.mus.br" para melhorar a busca
         const link = await searchOnMultipleEngines(text.replace(/[@!#$%&*_={};]/g, '') + ' site:letras.mus.br');
         if (!link) {
             logger.warn('Link não encontrado');
-            return [errorResponse()];
+            return errorResponse();
         }
         // Faz a requisição para o site "letras.mus.br" e pega o html bruto com a letra
         const html = await getRawSiteWithLyrics(link);
         if (!html) {
             logger.warn('html bruto não encontrado:', html);
-            return [errorResponse()];
+            return errorResponse();
         }
         // Se na consulta tiver "@", então a letra é formatada com 4 linhas para melhorar a leitura da letra
         // caso contrário, a letra fica da forma como está no site:
@@ -38,7 +37,7 @@ export async function getLyric(text: string): Promise<LyricArray> {
         // Se não foram encontrados, retorna um objeto vazio
         if (!title || !lyrics) {
             logger.warn('Título ou letra não encontrados');
-            return [errorResponse()];
+            return errorResponse();
         }
         const newMusic = {
             id: uuid(),
@@ -48,14 +47,12 @@ export async function getLyric(text: string): Promise<LyricArray> {
             lyrics,
             path: '', // Aqui você pode adicionar o caminho da música caso salve no servidor o MP3
         }
-        // Salva a música no banco de dados
-        saveMusic(newMusic);
         // Dado tudo certo, retorna um array com um objeto contendo as informações da música
-        return [newMusic];
+        return newMusic;
 
     } catch (error) {
         logger.error('Erro ao ler o arquivo:', error);
-        return [errorResponse()];
+        return errorResponse();
     }
     function errorResponse() {
         return {
@@ -66,18 +63,5 @@ export async function getLyric(text: string): Promise<LyricArray> {
             lyrics: '',
             path: '',
         };
-    }
-
-    function saveMusic(response: LyricArray[0]) {
-        try {
-            // Aqui vocé pode salvar a letra no banco de dados
-            const newMusic = new mySqliteMusic();
-            // está salvando apenas a primeira música da array, pois quando vai pesquisar, eu busco apenas 1 letra e não várias
-            newMusic.save(response);
-            return true;
-        } catch (error) {
-            logger.error('Erro ao salvar a música:', error);
-            return false;
-        }
     }
 }
