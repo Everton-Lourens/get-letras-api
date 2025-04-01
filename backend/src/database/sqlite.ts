@@ -7,7 +7,7 @@ export class mySqliteMusic {
 
   private async initDB() {
     this.db = await open({
-      filename: './local_db/music.db',
+      filename: './music.db',
       driver: sqlite3.Database
     });
 

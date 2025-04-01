@@ -1,5 +1,7 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+import { app, BrowserWindow } from 'electron';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import '../../backend/dist/server.js';
 
 let mainWindow = null;
 
@@ -12,7 +14,8 @@ function createWindow() {
         }
     });
 
-    mainWindow.loadFile(`${path.dirname(__filename)}/html/index.html`);
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+    mainWindow.loadFile(path.join(__dirname, 'html', 'index.html'));
 
     mainWindow.on('closed', function () {
         mainWindow = null;
