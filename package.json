@@ -6,11 +6,10 @@
   "main": "index.js",
   "scripts": {
     "setup": "npm install && npm install --prefix backend && npm install --prefix frontend",
+    "start": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
     "back": "npm run dev --prefix backend",
     "front": "npm run dev --prefix frontend",
-    "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "start": "electron frontend/src/index.js",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "installer": "electron-builder"
@@ -27,9 +26,5 @@
   "homepage": "https://github.com/Everton-Lourens/Get-Letras#readme",
   "devDependencies": {
     "concurrently": "^9.1.2"
-  },
-  "dependencies": {
-    "electron": "^35.1.2",
-    "sqlite3": "^5.1.7"
   }
 }

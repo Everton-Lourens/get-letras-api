@@ -1,8 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import '../../backend/dist/server.js';
-
 let mainWindow = null;
 
 function createWindow() {
