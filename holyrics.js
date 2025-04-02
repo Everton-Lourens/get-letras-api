@@ -1,3 +1,7 @@
+// Arquivo que o Holyrics usa na integração da API deles
+// Obs:: Não utilizo este arquivo, é apenas para entender como funciona
+// e conectar na API
+
 var BASE_URL = 'http://localhost:9999/v1/lyrics';
 
 function createUrlToSearch(input) {
