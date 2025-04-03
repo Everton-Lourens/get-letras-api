@@ -51,17 +51,19 @@ apiRouter.get('/search', validationFilter, async (req, res) => {
         lyrics,
     };
 
+    // Pesquisa a letra no banco de dados
     const searchMusicDatabase = await findMusic(query);
-
+    // Se a letra for encontrada no banco de dados, retorna a letra
     if (searchMusicDatabase !== null) {
         res.status(200).json(searchMusicDatabase).end();
         logger.info('Música encontrada no banco de dados:');
     } else {
+        // Se a letra não for encontrada no banco de dados, pesquisa a letra no Google
         await getLyric(text as string).then((response: Lyric) => {
             // Salvando a letra no banco de dados
             const newMusic = new mySqliteMusic();
+            // Salvando a letra no banco de dados
             newMusic.save(response);
-            logger.info('Música encontrada nos motores de busca:');
             // retornando a letra
             res.status(201).json(
                 [response]
