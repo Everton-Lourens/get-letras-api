@@ -89,6 +89,9 @@ nome-da-musica + " gospel site:letras.mus.br"
 ```ts
 const newMusic = new mySqliteMusic();
 newMusic.save(response);
+res.status(201).json(
+    [response]
+).end();
 ```
 
 **8.** Se nenhum resultado válido for encontrado, a API responde com status 422.
