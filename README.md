@@ -1,4 +1,4 @@
-# Get Letras
+# API Get Letras
 
 Download .exe: https://drive.google.com/drive/folders/1FIqnJ9wpoHELOp9llJOW9wfgoXIj1po0?usp=sharing
 
@@ -6,7 +6,7 @@ Download .exe: https://drive.google.com/drive/folders/1FIqnJ9wpoHELOp9llJOW9wfgo
 - *Tecnologias Utilizadas*
 - *Visão Geral*
 - *Como utilizar Localmente*
-- *Passo a Passo*
+- *Passo a Passo da API*
 
 ## Tecnologias Utilizadas
 - **Node.js**
@@ -50,7 +50,7 @@ npm run setup
 npm run start
 ```
 
-## Passo a Passo
+## Passo a Passo da API
 
 **1.** O usuário fornece o nome da música gospel que deseja buscar através da rota `/search`, utilizando parâmetros de consulta (query params), como:
 
