@@ -87,12 +87,18 @@ nome-da-musica + " gospel site:letras.mus.br"
   - Salva no banco de dados para consultas futuras:
 
 ```ts
-const newMusic = new mySqliteMusic();
-newMusic.save(response);
-
-res.status(201).json(
-    [response]
-).end();
+        // Se a letra não for encontrada no banco de dados local, pesquisa nos motores de busca
+        await getLyric(text as string).then((response: Lyric) => {
+            // Salvando a letra no banco de dados local
+            const newMusic = new mySqliteMusic();
+            newMusic.save(response);
+            // retornando a letra
+            res.status(201).json(
+                [response]
+            ).end();
+        }).catch(() => {
+            res.status(422).end();
+        });
 ```
 
 **8.** Se nenhum resultado válido for encontrado, a API responde com status 422.
