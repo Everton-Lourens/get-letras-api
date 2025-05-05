@@ -7,7 +7,6 @@ Download .exe: https://drive.google.com/drive/folders/1FIqnJ9wpoHELOp9llJOW9wfgo
 - *Visão Geral*
 - *Como utilizar Localmente*
 - *Passo a Passo*
-- *Exemplo de Uso*
 
 ## Tecnologias Utilizadas
 - **Node.js**
@@ -21,9 +20,9 @@ Download .exe: https://drive.google.com/drive/folders/1FIqnJ9wpoHELOp9llJOW9wfgo
 - **HTTP Requests**
 
 ## Visão Geral
-Este aplicativo foi desenvolvido para solucionar um problema da igreja.
+Este aplicativo foi desenvolvido para solucionar um problema de uma igreja.
 Vi que tínhamos um problema na mídia da igreja que faço parte e criei a solução.
-Sempre que alguém cantava uma música que não tinha cadastrado no programa do projetor do telão, tínhamos que fazer tudo isso de forma manual.
+Sempre que alguém cantava uma música que não tinha cadastrado no programa do projetor do telão (Holyrics), tínhamos que fazer tudo isso de forma manual.
 O programa busca letras de músicas gospel diretamente do site [letras.mus.br](https://www.letras.mus.br/) utilizando uma pesquisa automatizada nos motores de busca.
 
 Imagem exemplo 1:
@@ -100,11 +99,3 @@ getLyric(text).then((response) => {
 ```
 
 **8.** Se nenhum resultado válido for encontrado, a API responde com status 422.
-
-## Exemplo de Uso
-
-Suponha que você queira buscar a letra da música "Fernandinho, uma coisa peço ao Senhor":
-
-```bash
-searchOnMultipleEngines('Fernandinho, uma coisa peço ao Senhor gospel site:letras.mus.br');
-```
