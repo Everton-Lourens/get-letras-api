@@ -6,7 +6,7 @@ Download .exe: https://drive.google.com/drive/folders/1FIqnJ9wpoHELOp9llJOW9wfgo
 - *Tecnologias Utilizadas*
 - *Visão Geral*
 - *Como utilizar Localmente*
-- *Como Funciona*
+- *Passo a passo*
 - *Exemplo de Uso*
 
 ## Tecnologias Utilizadas
@@ -50,7 +50,7 @@ npm run setup
 npm run start
 ```
 
-## Como Funciona
+## Passo a passo
 
 1. O usuário fornece o nome da música gospel que deseja buscar.
 2. O aplicativo utiliza os motores de busca para realizar uma pesquisa com o seguinte formato:
