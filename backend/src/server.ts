@@ -95,7 +95,7 @@ apiRouter.get('/get', validationUUID, async (req, res) => {
 app.use(errorHandler);
 
 const numForks = Number(process.env.CLUSTER_WORKERS) || 3; // Número de forks a serem criados, padrão 5
-const isCluster = process.env.CLUSTER === 'true' || true; // Se o cluster estiver habilitado, padrão true
+const isCluster = process.env.CLUSTER === 'true' || true;
 
 if (cluster.isPrimary && isCluster) {
     logger.info(`Server: Primary ${process.pid} is running`);
