@@ -52,7 +52,7 @@ npm run start
 
 ## Passo a Passo da API
 
-**1.** O usuário fornece o nome da música gospel que deseja buscar através da rota `/search`, utilizando parâmetros de consulta (query params), como:
+**1.** O usuário fornece o nome da música gospel que deseja buscar através da rota `http://localhost:9999/search`, utilizando parâmetros de consulta (query params), como:
 
    - `text` (obrigatório): nome da música ou trecho.
    - `title`, `artist`, `author`, `lyrics` (opcionais): filtros booleanos para refinar a busca.
