@@ -44,8 +44,8 @@ Imagem exemplo 3:
 - **Descrição**: Instale as dependências "`npm run setup`" e utilize "`npm run start`" para iniciar o Front-End e o Back-End *(localhost:9999)* ao mesmo tempo com a lib de desenvolvimento "`concurrently`".
 
 ```bash
-git clone https://github.com/Everton-Lourens/Get-Letras.git
-cd Get-Letras
+git clone https://github.com/Everton-Lourens/Get-Letras-API.git
+cd Get-Letras-API
 npm run setup
 npm run start
 ```
