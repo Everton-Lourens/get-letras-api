@@ -22,6 +22,16 @@ Imagem exemplo 3:
   https://ibb.co/0mBjkjw
   ```
 
+## Como utilizar Localmente
+- **Descrição**: Instale as dependências "`npm run setup`" e utilize "`npm run start`" para iniciar o Front-End e o Back-End *(localhost:9999)* ao mesmo tempo com a lib de desenvolvimento "`concurrently`".
+
+```bash
+git clone https://github.com/Everton-Lourens/Get-Letras.git
+cd Get-Letras
+npm run setup
+npm run start
+```
+
 ## Funcionalidades
 
 - Realiza uma busca automatizada através de múltiplos motores de busca até localizar o site "`letras.mus.br`" com a letra da música pesquisada (Obs: inclui em todas as pesquisas a palavra-chave "`gospel`". Isso garante resultados relevantes para o contexto de igrejas, filtrando letras de músicas não gospel.).
