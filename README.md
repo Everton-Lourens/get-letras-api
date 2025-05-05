@@ -13,7 +13,7 @@ Download .exe: https://drive.google.com/drive/folders/1FIqnJ9wpoHELOp9llJOW9wfgo
 - **TypeScript**
 - **JavaScript**
 - **Express.js**
-- **Docker**
+- **Cluster (para balanceamento de carga)**
 - **Express.js**
 - **Concurrently (para executar Front-End e Back-End juntos)**
 - **HTML Parsing**
@@ -52,8 +52,8 @@ npm run start
 
 ## Passo a Passo da API
 
-**0.** *Cluster:*
-A API opera com um cluster de 3 workers/processos ativos, evitando sobrecarga no servidor caso tenha uma alta demanda de requisições, podendo aumentar ou diminuir os workers conforme demanda.
+**0.** *Balanceador de carga com Cluster:*
+A API opera com um balanceador de carga em cluster de 3 workers/processos ativos, evitando sobrecarga no servidor caso tenha uma alta demanda de requisições, podendo aumentar ou diminuir os workers conforme demanda.
 
 *Funcionamento do Cluster:*
 - O processo principal (master) cria múltiplos workers (processos filhos).
