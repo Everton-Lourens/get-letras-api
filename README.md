@@ -53,7 +53,7 @@ npm run start
 
 ## Passo a Passo
 
-1. O usuário fornece o nome da música gospel que deseja buscar através da rota `/search`, utilizando parâmetros de consulta (query params), como:
+**1.** O usuário fornece o nome da música gospel que deseja buscar através da rota `/search`, utilizando parâmetros de consulta (query params), como:
 
    - `text` (obrigatório): nome da música ou trecho.
    - `title`, `artist`, `author`, `lyrics` (opcionais): filtros booleanos para refinar a busca.
@@ -64,25 +64,25 @@ npm run start
 /search?text=uma+coisa+peço+ao+Senhor&title=true&artist=true&lyrics=true
 ```
 
-2. A API verifica se a letra já está salva no banco de dados local (SQLite):
+**2.** A API verifica se a letra já está salva no banco de dados local (SQLite):
 
 ```ts
 const searchMusicDatabase = await findMusic(query);
 ```
 
-3. Se a música for encontrada no banco, a API responde com status 200 e retorna os dados.
+**3.** Se a música for encontrada no banco, a API responde com status 200 e retorna os dados.
 
-4. Caso a letra não esteja no banco, a API executa uma busca automática em múltiplos motores de busca com a seguinte query:
+**4.** Caso a letra não esteja no banco, a API executa uma busca automática em múltiplos motores de busca com a seguinte query:
 
 ```bash
 nome-da-musica + " gospel site:letras.mus.br"
 ```
 
-5. O primeiro link do domínio letras.mus.br encontrado nos buscadores é acessado.
+**5.** O primeiro link do domínio letras.mus.br encontrado nos buscadores é acessado.
 
-6. A página da música é processada via HTML parsing (utilizando a biblioteca Cheerio), e a letra é extraída com a remoção de elementos HTML desnecessários.
+**6.** A página da música é processada via HTML parsing (utilizando a biblioteca Cheerio), e a letra é extraída com a remoção de elementos HTML desnecessários.
 
-7. A letra extraída é:
+**7.** A letra extraída é:
   - Retornada ao usuário com status 201
   - Salva no banco de dados para consultas futuras:
 
@@ -91,7 +91,7 @@ const newMusic = new mySqliteMusic();
 newMusic.save(response);
 ```
 
-8. Se nenhum resultado válido for encontrado, a API responde com status 422.
+**8.** Se nenhum resultado válido for encontrado, a API responde com status 422.
 
 ## Exemplo de Uso
 
