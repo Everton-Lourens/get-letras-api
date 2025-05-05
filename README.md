@@ -59,7 +59,7 @@ A API opera com um cluster de 5 workers/processos ativos, evitando sobrecarga no
 - O processo principal (master) cria múltiplos workers (processos filhos).
 - Cada worker escuta as mesmas conexões, funcionando como cópias independentes do servidor.
 - O sistema operacional distribui as requisições entre os workers de forma balanceada.
-- No exemplo, o cluster possui 5 workers/processos em execução.
+- Nesta API, o cluster possui 5 workers/processos em execução.
 - Se um worker falhar, o processo principal detecta o erro e cria um novo automaticamente.
 
 **1.** O usuário fornece o nome da música gospel que deseja buscar através da rota `http://localhost:9999/search`, utilizando parâmetros de consulta (query params), como:
