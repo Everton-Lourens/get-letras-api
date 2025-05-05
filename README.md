@@ -6,7 +6,7 @@ Download .exe: https://drive.google.com/drive/folders/1FIqnJ9wpoHELOp9llJOW9wfgo
 - *Tecnologias Utilizadas*
 - *Visão Geral*
 - *Como utilizar Localmente*
-- *Passo a passo*
+- *Passo a Passo*
 - *Exemplo de Uso*
 
 ## Tecnologias Utilizadas
@@ -40,7 +40,7 @@ Imagem exemplo 3:
   https://ibb.co/0mBjkjw
   ```
 
-## Como utilizar Localmente
+## Como Utilizar Localmente
 - **Descrição**: Instale as dependências "`npm run setup`" e utilize "`npm run start`" para iniciar o Front-End e o Back-End *(localhost:9999)* ao mesmo tempo com a lib de desenvolvimento "`concurrently`".
 
 ```bash
@@ -50,7 +50,7 @@ npm run setup
 npm run start
 ```
 
-## Passo a passo
+## Passo a Passo
 
 1. O usuário fornece o nome da música gospel que deseja buscar.
 2. O aplicativo utiliza os motores de busca para realizar uma pesquisa com o seguinte formato:
