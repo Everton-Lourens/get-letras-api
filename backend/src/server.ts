@@ -94,7 +94,7 @@ apiRouter.get('/get', validationUUID, async (req, res) => {
 
 app.use(errorHandler);
 
-const numForks = Number(process.env.CLUSTER_WORKERS) || 1;
+const numForks = Number(process.env.CLUSTER_WORKERS) || 3;
 
 if (cluster.isPrimary && process.env.CLUSTER === 'true') {
     logger.info(`index.js: Primary ${process.pid} is running`);
