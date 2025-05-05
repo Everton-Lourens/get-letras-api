@@ -94,21 +94,22 @@ apiRouter.get('/get', validationUUID, async (req, res) => {
 
 app.use(errorHandler);
 
-const numForks = Number(process.env.CLUSTER_WORKERS) || 3;
+const numForks = Number(process.env.CLUSTER_WORKERS) || 3; // Número de forks a serem criados, padrão 5
+const isCluster = process.env.CLUSTER === 'true' || true; // Se o cluster estiver habilitado, padrão true
 
-if (cluster.isPrimary && process.env.CLUSTER === 'true') {
-    logger.info(`index.js: Primary ${process.pid} is running`);
+if (cluster.isPrimary && isCluster) {
+    logger.info(`Server: Primary ${process.pid} is running`);
 
     for (let i = 0; i < numForks; i++) {
         cluster.fork();
     }
 
     cluster.on('exit', (worker, code, signal) => {
-        logger.info(`index.js: worker ${worker.process.pid} died: code ${code} signal ${signal}`);
+        logger.info(`Server: worker ${worker.process.pid} died: code ${code} signal ${signal}`);
     });
 } else {
     const serverApp = app.listen(PORT, () => {
-        logger.info(`index.js:${process.pid}:Listening on ${PORT}`);
+        logger.info(`Server:${process.pid}:Listening on ${PORT}`);
     });
 
     if (process.env.USE_TIMEOUT === 'true') {
