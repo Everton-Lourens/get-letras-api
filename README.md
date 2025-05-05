@@ -52,7 +52,7 @@ npm run start
 
 ## Passo a Passo da API
 
-**0.** Cluster:
+**0.** *Cluster:*
 A API opera com um cluster de 5 workers/processos ativos, evitando sobrecarga no servidor caso tenha uma alta demanda de requisições, podendo aumentar ou diminuir os workers conforme demanda.
 
 *Funcionamento do Cluster:*
