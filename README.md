@@ -11,6 +11,7 @@ Download .exe: https://drive.google.com/drive/folders/1FIqnJ9wpoHELOp9llJOW9wfgo
 
 ## Tecnologias Utilizadas
 - **Node.js**
+- **TypeScript**
 - **JavaScript**
 - **Express.js**
 - **Docker**
@@ -52,15 +53,45 @@ npm run start
 
 ## Passo a Passo
 
-1. O usuário fornece o nome da música gospel que deseja buscar.
-2. O aplicativo utiliza os motores de busca para realizar uma pesquisa com o seguinte formato:
+1. O usuário fornece o nome da música gospel que deseja buscar através da rota `/search`, utilizando parâmetros de consulta (query params), como:
 
-    ```bash
-    query + ' gospel site:letras.mus.br'
-    ```
+   - `text` (obrigatório): nome da música ou trecho.
+   - `title`, `artist`, `author`, `lyrics` (opcionais): filtros booleanos para refinar a busca.
 
-3. O primeiro link retornado pela pesquisa dos motores de busca, que aponta para o site [letras.mus.br](https://www.letras.mus.br/), é acessado.
-4. O conteúdo da página é analisado e a letra da música é extraída, removendo os elementos HTML indesejados.
+   **Exemplo de requisição:**
+
+```bash
+/search?text=uma+coisa+peço+ao+Senhor&title=true&artist=true&lyrics=true
+```
+
+2. A API verifica se a letra já está salva no banco de dados local (SQLite):
+
+```ts
+const searchMusicDatabase = await findMusic(query);
+```
+
+3. Se a música for encontrada no banco, a API responde com status 200 e retorna os dados.
+
+4. Caso a letra não esteja no banco, a API executa uma busca automática em múltiplos motores de busca com a seguinte query:
+
+```bash
+nome-da-musica + " gospel site:letras.mus.br"
+```
+
+5. O primeiro link do domínio letras.mus.br encontrado nos buscadores é acessado.
+
+6. A página da música é processada via HTML parsing (utilizando a biblioteca Cheerio), e a letra é extraída com a remoção de elementos HTML desnecessários.
+
+7. A letra extraída é:
+  - Retornada ao usuário com status 201
+  - Salva no banco de dados para consultas futuras:
+
+```ts
+const newMusic = new mySqliteMusic();
+newMusic.save(response);
+```
+
+8. Se nenhum resultado válido for encontrado, a API responde com status 422.
 
 ## Exemplo de Uso
 
@@ -68,4 +99,4 @@ Suponha que você queira buscar a letra da música "Fernandinho, uma coisa peço
 
 ```bash
 searchOnMultipleEngines('Fernandinho, uma coisa peço ao Senhor gospel site:letras.mus.br');
-# Get-Letras-exe
+```
