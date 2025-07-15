@@ -9,7 +9,10 @@
 ### Resposta da requisição
 ![Resposta](./exemple/Print3.jpg)
 
-Download .exe: https://drive.google.com/drive/folders/1FIqnJ9wpoHELOp9llJOW9wfgoXIj1po0?usp=sharing
+### Download .exe:
+  ```bash
+  https://drive.google.com/drive/folders/1FIqnJ9wpoHELOp9llJOW9wfgoXIj1po0?usp=sharing
+  ```
 
 # Tópicos do README
 - *Tecnologias Utilizadas*
@@ -33,21 +36,6 @@ Este aplicativo foi desenvolvido para solucionar um problema de uma igreja.
 Vi que tínhamos um problema na mídia da igreja que faço parte e criei a solução.
 Sempre que alguém cantava uma música que não tinha cadastrado no programa do projetor do telão (Holyrics), tínhamos que fazer tudo isso de forma manual.
 O programa busca letras de músicas gospel diretamente do site [letras.mus.br](https://www.letras.mus.br/) utilizando uma pesquisa automatizada nos motores de busca.
-
-Imagem exemplo 1:
-  ```bash
-  https://ibb.co/DMVvNSr
-  ```
-
-Imagem exemplo 2:
-  ```bash
-  https://ibb.co/W5R7q3H
-  ```
-
-Imagem exemplo 3:
-  ```bash
-  https://ibb.co/0mBjkjw
-  ```
 
 ## Como Utilizar Localmente
 - **Descrição**: Instale as dependências "`npm run setup`" e utilize "`npm run start`" para iniciar o Front-End e o Back-End *(localhost:9999)* ao mesmo tempo com a lib de desenvolvimento "`concurrently`".
