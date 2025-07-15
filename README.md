@@ -1,4 +1,12 @@
-# API Get Letras
+# Get Letras API
+
+## Tópicos do README
+- *Demonstração com imagens*
+- *Link para download*
+- *Tecnologias Utilizadas*
+- *Visão Geral*
+- *Como utilizar Localmente*
+- *Passo a Passo da API*
 
 ### Tela inicial
 ![Tela inicial](./exemple/Print1.jpg)
@@ -13,12 +21,6 @@
   ```bash
   https://drive.google.com/drive/folders/1FIqnJ9wpoHELOp9llJOW9wfgoXIj1po0?usp=sharing
   ```
-
-# Tópicos do README
-- *Tecnologias Utilizadas*
-- *Visão Geral*
-- *Como utilizar Localmente*
-- *Passo a Passo da API*
 
 ## Tecnologias Utilizadas
 - **Node.js**
