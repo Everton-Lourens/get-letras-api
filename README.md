@@ -8,13 +8,13 @@
 - *Como utilizar Localmente*
 - *Passo a Passo da API*
 
-### Tela inicial
+### Tela inicial (1/3)
 ![Tela inicial](./exemple/Print1.jpg)
 
-### Pesquisando letra
+### Pesquisando letra (2/3)
 ![Pesquisando letra](./exemple/Print2.jpg)
 
-### Resposta da requisição
+### Resposta da requisição (3/3)
 ![Resposta](./exemple/Print3.jpg)
 
 ### Download .exe:
