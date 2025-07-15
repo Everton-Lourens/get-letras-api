@@ -7,23 +7,7 @@ import { getLyric } from './api/get_lyric.js';
 import { logger } from './helpers/logger.js';
 import { findMusic, findMusicById } from './music/findMusic.js';
 import { mySqliteMusic } from './database/sqlite.js';
-
-type Lyric = {
-    id: string;
-    title: string;
-    artist: string;
-    author: string;
-    lyrics: string;
-    path: string
-};
-
-type QueryLyric = {
-    text: string;
-    title: boolean;
-    artist: boolean;
-    author: boolean;
-    lyrics: boolean;
-};
+import { Lyric, QueryLyric } from './type/lyric.js';
 
 const TIMEOUT = Number(process.env.REQ_TIMEOUT) || 5000;
 const PORT = process.env.NODE_ENV === 'production' ? (Number(process.env.PORT) || 8080) : 9999; // 8080 para usar dentro do docker e 9999 para usar localmente
@@ -34,9 +18,7 @@ const apiRouter = Router();
 app.use(bodyParser.json());
 app.use('/v1/lyrics', apiRouter);
 
-
 apiRouter.get('/search', validationFilter, async (req, res) => {
-
     const text = req?.query['text'] as string;
     const title = req?.query['title'] === 'true';
     const artist = req?.query['artist'] === 'true';
@@ -56,7 +38,7 @@ apiRouter.get('/search', validationFilter, async (req, res) => {
     // Se a letra for encontrada no banco de dados, retorna a letra
     if (searchMusicDatabase !== null) {
         res.status(200).json(searchMusicDatabase).end();
-        logger.info('Música encontrada no banco de dados:');
+        logger.info('Música encontrada no banco de dados: ' + text);
     } else {
         // Se a letra não for encontrada no banco de dados local, pesquisa nos motores de busca
         await getLyric(text as string).then((response: Lyric) => {
@@ -72,7 +54,6 @@ apiRouter.get('/search', validationFilter, async (req, res) => {
         });
     }
 });
-
 
 apiRouter.get('/get', validationUUID, async (req, res) => {
     const id = req?.query?.id as string;
