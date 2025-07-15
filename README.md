@@ -1,10 +1,10 @@
 # API Get Letras
 
-![Tela inicial](./exemplo/Print1.jpg)
+![Tela inicial](./exemple/Print1.jpg)
 
-![Pesquisando letra](./exemplo/Print2.jpg)
+![Pesquisando letra](./exemple/Print2.jpg)
 
-![Resposta](./exemplo/Print2.jpg)
+![Resposta](./exemple/Print2.jpg)
 
 Download .exe: https://drive.google.com/drive/folders/1FIqnJ9wpoHELOp9llJOW9wfgoXIj1po0?usp=sharing
 
