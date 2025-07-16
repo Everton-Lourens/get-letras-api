@@ -9,13 +9,13 @@
 - *Passo a Passo da API*
 
 ### Tela inicial (1/3)
-![Tela inicial](./exemple/Print1.jpg)
+![Tela inicial](./frontend/public/img/exemple1.jpg)
 
 ### Pesquisando letra (2/3)
-![Pesquisando letra](./exemple/Print2.jpg)
+![Pesquisando letra](./frontend/public/img/exemple2.jpg)
 
 ### Resposta da requisição (3/3)
-![Resposta](./exemple/Print3.jpg)
+![Resposta](./frontend/public/img/exemple3.jpg)
 
 ### Download .exe:
   ```bash
