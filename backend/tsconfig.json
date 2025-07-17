@@ -104,6 +104,6 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/server.ts"
+    "src/shared/http/server.ts"
   ]
 }

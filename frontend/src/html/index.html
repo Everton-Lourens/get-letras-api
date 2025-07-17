@@ -163,7 +163,7 @@
       var params = 'text=' + encodeURIComponent(searchInput);
       params += '&title=true&artist=true&lyrics=true';
 
-      fetch(`http://localhost:9999/v1/lyrics/search?${params}`)
+      fetch(`http://localhost:9999/v1/music/search?${params}`)
         .then(response => response.json())
         .then(data => {
           if (data) {

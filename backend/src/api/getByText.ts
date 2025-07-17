@@ -13,7 +13,7 @@ type Lyric = {
     path: string
 };
 
-export async function getLyricByText(text: string): Promise<Lyric> {
+export async function getLyric(text: string): Promise<Lyric> {
     try {
         // Consulta a letra no google ou qualquer outro motor de busca e pega o primeiro link do site "letras.mus.br"
         // Se o texto tiver algum caractere especial, remove e adiciona "site:letras.mus.br" para melhorar a busca

@@ -15,7 +15,8 @@ export const validateBody = (req: Request): boolean => {
 export const validationFilter = (req: Request, res: Response, next: NextFunction): void => {
     try {
         if (!validateBody(req)) {
-            logger.error('Erro de validação do corpo da requisição:', req.query);
+            logger.error('Erro de validação do corpo da requisição:');
+            logger.error(req.query);
             // Type 'Response<any, Record<string, any>>' is not assignable to type 'void'
             res.status(422).json({ message: 'Dados inválidos no corpo da requisição.' });
             return;
@@ -24,6 +25,7 @@ export const validationFilter = (req: Request, res: Response, next: NextFunction
     } catch (error) {
         logger.error(error);
         res.status(500).json({ message: 'Erro interno no servidor. Tente novamente mais tarde.' });
+        next(error);
     }
 };
 

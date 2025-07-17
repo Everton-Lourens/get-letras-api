@@ -49,6 +49,15 @@ npm run setup
 npm run start
 ```
 
+- **Exemplo de requisição**:
+```bash
+http://localhost:9999/v1/music/search?text=fernandinho+seu+sangue&title=true&lyrics=true
+```
+
+- **Exemplo de requisição com ID**:
+```bash
+http://localhost:9999/v1/music/get?id=(ID-da-música)
+```
 ## Passo a Passo da API
 
 **0.** *Balanceador de carga com Cluster:*
