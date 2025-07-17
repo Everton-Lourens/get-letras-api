@@ -8,13 +8,13 @@
 - *Como utilizar Localmente*
 - *Passo a Passo da API*
 
-### Tela inicial (1/3)
-![Tela inicial](./frontend/public/img/exemple1.jpg)
+### Pesquisando letra (1/3)
+![Pesquisando letra](./frontend/public/img/exemple1.jpg)
 
-### Pesquisando letra (2/3)
-![Pesquisando letra](./frontend/public/img/exemple2.jpg)
+### Resposta da requisição (2/3)
+![Resposta](./frontend/public/img/exemple2.jpg)
 
-### Resposta da requisição (3/3)
+### Resposta JSON do Back-End (3/3)
 ![Resposta](./frontend/public/img/exemple3.jpg)
 
 ### Download .exe:
