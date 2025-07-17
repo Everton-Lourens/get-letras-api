@@ -15,7 +15,7 @@ musicRoutes.get('/search', validationFilter, async (req, res, next) => {
     }
 })
 musicRoutes.get('/get', validationUUID, async (req, res, next) => {
-    //Exemplo: http://localhost:9999/v1/music/get?id=(ID-da-música)
+    //Exemplo: http://localhost:9999/v1/music/get?id=f85e9cc4-d4eb-41a4-955e-7587d8aa7a31
     try {
         await musicController.getLyricById(req, res);
     } catch (err) {
