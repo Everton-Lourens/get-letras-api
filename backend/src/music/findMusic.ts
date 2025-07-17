@@ -1,13 +1,6 @@
 import { mySqliteMusic } from "../database/sqlite.js";
 import { logger } from "../helpers/logger.js";
-
-type QueryLyric = {
-    text: string;
-    title: boolean;
-    artist: boolean;
-    author: boolean;
-    lyrics: boolean;
-};
+import { QueryLyric } from "../types/music.js";
 
 export async function findMusic({ text, title, artist, author, lyrics }: QueryLyric): Promise<object | null> {
 

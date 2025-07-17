@@ -3,15 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { searchOnMultipleEngines } from "../services/researcher.js";
 import { getRawSiteWithLyrics } from "../services/rawSiteWithLyrics.js";
 import { getOnlyTheLyrics } from "../helpers/extractLyric.js";
-
-type Lyric = {
-    id: string;
-    title: string;
-    artist: string;
-    author: string;
-    lyrics: string;
-    path: string
-};
+import { Lyric } from '../types/music.js';
 
 export async function getLyric(text: string): Promise<Lyric> {
     try {
