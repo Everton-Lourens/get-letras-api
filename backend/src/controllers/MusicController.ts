@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { Lyric, QueryLyric } from '../types/music.js'
-import { getLyricByText } from '../api/get_lyric.js';
+import { getLyric } from '../searchLyric/getByText.js';
 import { mySqliteMusic } from '../database/sqlite.js';
 import { findMusic, findMusicById } from '../music/findMusic.js';
 import { logger } from '../helpers/logger.js';
@@ -32,7 +32,7 @@ export class MusicController {
     } else {
       try {
         // Se a letra não for encontrada no banco de dados local, pesquisa nos motores de busca
-        const response: Lyric = await getLyricByText(text as string);
+        const response: Lyric = await getLyric(text as string);
         // Salvando a letra no banco de dados local
         const newMusic = new mySqliteMusic();
         newMusic.save(response);

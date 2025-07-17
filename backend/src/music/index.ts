@@ -1,4 +1,4 @@
-import { getLyric } from "../api/getByText.js";
+import { getLyric } from "../searchLyric/getByText.js";
 import { mySqliteMusic } from "../database/sqlite.js";
 import { logger } from "../helpers/logger.js";
 import { Lyric, QueryLyric } from "../types/music.js";
