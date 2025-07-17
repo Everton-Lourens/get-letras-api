@@ -56,7 +56,7 @@ http://localhost:9999/v1/music/search?text=fernandinho+seu+sangue&title=true&lyr
 
 - **Exemplo de requisição com ID**:
 ```bash
-http://localhost:9999/v1/music/get?id=(ID-da-música)
+http://localhost:9999/v1/music/get?id=f85e9cc4-d4eb-41a4-955e-7587d8aa7a31
 ```
 ## Passo a Passo da API
 
