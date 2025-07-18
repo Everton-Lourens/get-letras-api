@@ -1,5 +1,6 @@
 import * as cheerio from 'cheerio';
 import { logger } from '../helpers/logger.js';
+import { formatLyric, simpleFormatLyrics } from './format.js';
 
 export async function getOnlyTheLyrics(html: string | null, fullFormatLyrics = false): Promise<{ title: string, artist: string, lyrics: string }> {
     try {
@@ -22,11 +23,11 @@ export async function getOnlyTheLyrics(html: string | null, fullFormatLyrics = f
         // Extrair o texto bruto da letra
         let rawLyric = rawLyricHtml.html();
 
-        if (!rawLyric) {
-            throw new Error('Letra nao encontrada');
-        }
+        if (!rawLyric)
+            throw new Error('Letra não encontrada');
 
-        const lyrics = fullFormatLyrics ? formatFullLyrics(rawLyric) : simpleFormatLyrics(rawLyric);
+        rawLyric = simpleFormatLyrics(rawLyric)
+        var lyrics = fullFormatLyrics ? formatLyric(rawLyric) : rawLyric;
 
         return { title, artist, lyrics };
 
@@ -37,55 +38,3 @@ export async function getOnlyTheLyrics(html: string | null, fullFormatLyrics = f
     }
 }
 
-function simpleFormatLyrics(lyrics: string): string {
-    // Remover tags HTML
-    // Substituir <br> por \n
-    lyrics = lyrics.replace(/<br\s*\/?>/gi, '\n');
-
-    // Substituir <p> por \n\n
-    lyrics = lyrics.replace(/<\/?p[^>]*>/gi, '\n');
-
-    // Remover tags restantes
-    lyrics = lyrics.replace(/<\/?[^>]+(>|$)/g, '');
-
-    lyrics = lyrics.trim();
-    return lyrics;
-}
-
-function formatFullLyrics(lyrics: string): string {
-
-    lyrics = simpleFormatLyrics(lyrics);
-
-    // Formatar letras para 17 caracteres por linha sem cortar palavras
-    const words = lyrics.split(/\s+/);
-    let currentLine = '';
-    const formattedLines = [];
-
-    words.forEach(word => {
-        if ((currentLine + ' ' + word).trim().length <= 30) {
-            currentLine += (currentLine ? ' ' : '') + word;
-        } else {
-            formattedLines.push(currentLine);
-            currentLine = word;
-        }
-    });
-    if (currentLine) formattedLines.push(currentLine);
-
-    // Agrupar em blocos de 4 linhas
-    const groupSize = 4;
-    const formattedLyrics = [];
-    for (let i = 0; i < formattedLines.length; i += groupSize) {
-        for (let j = 0; j < groupSize; j++) {
-            if (i + j < formattedLines.length) {
-                formattedLyrics.push(formattedLines[i + j]);
-            } else {
-                formattedLyrics.push(' '.repeat(30));
-            }
-        }
-        formattedLyrics.push(''); // Adicionar espaçamento entre blocos
-    }
-
-    lyrics = formattedLyrics.join('\n').trim();
-
-    return lyrics;
-}

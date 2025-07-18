@@ -90,6 +90,10 @@
       background-color: green;
     }
 
+    .formated {
+      background-color: rgb(167, 170, 0);
+    }
+
     .error {
       background-color: red;
     }
@@ -152,6 +156,7 @@
 
   <script>
     document.getElementById('searchInput').focus();
+    let formatLyricBoolean = false
     function search() {
       const searchInput = document.getElementById('searchInput').value;
       const popup = document.getElementById('loading-popup');
@@ -160,7 +165,7 @@
       popup.style.opacity = '1'; // Define a opacidade para garantir que ele apareça
       changeColor('btn-search', false)
 
-      var params = 'text=' + encodeURIComponent(searchInput);
+      var params = 'text=' + encodeURIComponent(searchInput + (formatLyricBoolean ? '@' : ''));
       params += '&title=true&artist=true&lyrics=true';
 
       fetch(`http://localhost:9999/v1/music/search?${params}`)
@@ -193,6 +198,16 @@
         .finally(() => {
           popup.style.visibility = 'hidden'; // Torna o popup invisível novamente
         });
+    }
+
+    function formatLyric() {
+      formatLyricBoolean = !formatLyricBoolean
+      var spanContent = document.getElementById('btn-format');
+      if (formatLyricBoolean) {
+        spanContent.classList.add('formated');
+      } else {
+        spanContent.classList.remove('formated');
+      }
     }
 
     document.addEventListener('keydown', function (event) {
