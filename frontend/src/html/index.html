@@ -32,6 +32,24 @@
       /* Tamanho do elemento */
     }
 
+        #btn-format {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    #btn-format:hover {
+      background-color: #0056b3;
+    }
+
     .button-container {
       display: flex;
       align-items: center;
@@ -122,6 +140,7 @@
 </head>
 
 <body>
+  <button id="btn-format"><strong>Formatar</strong></button>
   <center>
     <h2 for="title">Letras de Música</h2>
     <br>
@@ -155,9 +174,62 @@
 
 
   <script>
+    let formatLyrics = false;
+    let lyricsOld = '';
+    document.getElementById('btn-format').addEventListener('click', function () {
+      formatLyrics = !formatLyrics;
+      this.style.backgroundColor = formatLyrics ? 'green' : '';
+      const lyrics = document.getElementById('lyrics').textContent;
+      if (formatLyrics && lyrics) {
+        lyricsOld = lyrics;
+        // Formata a letra
+        const formattedLyrics = formatLyric(lyrics);
+        document.getElementById('lyrics').textContent = formattedLyrics;
+      } else if (!formatLyrics && lyrics) {
+        // Formata a letra simples
+        document.getElementById('lyrics').textContent = lyricsOld;
+      }
+      function simpleFormatLyrics(lyrics) {
+        // Remover tags HTML
+        // Substituir <br> por \n
+        lyrics = lyrics.replace(/<br\s*\/?>/gi, '\n');
+        // Substituir <p> por \n\n
+        lyrics = lyrics.replace(/<\/?p[^>]*>/gi, '\n');
+        // Remover tags restantes
+        lyrics = lyrics.replace(/<\/?[^>]+(>|$)/g, '');
+        lyrics = lyrics.trim();
+        return lyrics;
+      }
+      function formatLyric(text) {
+        // Convert visible \n to real line breaks
+        const lines = text.replace(/\\n/g, '\n')
+          .split('\n')
+          .map(l => l.trim())
+          .filter(Boolean); // remove empty strings
+
+        const blocks = [];
+        for (let i = 0; i < lines.length; i += 2) {
+          // If there are 3 lines left at the end, group all
+          if (i + 3 === lines.length) {
+            blocks.push([lines[i], lines[i + 1], lines[i + 2]]);
+            break;
+          }
+          blocks.push([lines[i], lines[i + 1]]);
+        }
+
+        // Join blocks with \n\n between them
+        return blocks.map(b => b.join('\n')).join('\n\n');
+      }
+    });
+
+
     document.getElementById('searchInput').focus();
     let formatLyricBoolean = false
     function search() {
+      document.getElementById('btn-format').style.backgroundColor = '';
+      lyricsOld = '';
+      formatLyrics = false;
+
       const searchInput = document.getElementById('searchInput').value;
       const popup = document.getElementById('loading-popup');
 
