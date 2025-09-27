@@ -1,10 +1,16 @@
 # Get Letras API
 
+## Visão Geral
+Este aplicativo foi desenvolvido para solucionar um problema de uma igreja.
+Vi que tínhamos um problema na mídia da igreja que faço parte e criei a solução.
+Sempre que alguém cantava uma música que não tinha cadastrado no programa do projetor do telão (Holyrics), tínhamos que fazer tudo isso de forma manual.
+O programa busca letras de músicas gospel diretamente do site [letras.mus.br](https://www.letras.mus.br/) utilizando uma pesquisa automatizada nos motores de busca.
+
 ## Tópicos do README
+- *Visão Geral*
 - *Demonstração com imagens*
 - *Link para download*
 - *Tecnologias Utilizadas*
-- *Visão Geral*
 - *Como utilizar Localmente*
 - *Passo a Passo da API*
 
@@ -32,12 +38,6 @@
 - **Concurrently (para executar Front-End e Back-End juntos)**
 - **HTML Parsing**
 - **HTTP Requests**
-
-## Visão Geral
-Este aplicativo foi desenvolvido para solucionar um problema de uma igreja.
-Vi que tínhamos um problema na mídia da igreja que faço parte e criei a solução.
-Sempre que alguém cantava uma música que não tinha cadastrado no programa do projetor do telão (Holyrics), tínhamos que fazer tudo isso de forma manual.
-O programa busca letras de músicas gospel diretamente do site [letras.mus.br](https://www.letras.mus.br/) utilizando uma pesquisa automatizada nos motores de busca.
 
 ## Como Utilizar Localmente
 - **Descrição**: Instale as dependências "`npm run setup`" e utilize "`npm run start`" para iniciar o Front-End e o Back-End *(localhost:9999)* ao mesmo tempo com a lib de desenvolvimento "`concurrently`".
